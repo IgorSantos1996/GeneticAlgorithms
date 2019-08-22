@@ -1,0 +1,34 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace Persistencia
+{
+    public class PersistenciaHorario
+    {
+        private readonly DbContextAG _contexto;
+
+        public PersistenciaHorario(DbContextAG contexto)
+        {
+            _contexto = contexto;
+        }
+
+        public void Adicionar(Horario horario)
+        {
+            _contexto.Horarios.Add(horario);
+            _contexto.SaveChanges();
+        }
+
+        public List<Horario> ObterTodos()
+            => _contexto
+            .Horarios
+            .Include(h => h.Ano)
+            .Include(h => h.Disciplina)
+            .Include(h => h.Disciplina.Professor)
+            .OrderBy(h => h.Ano.Periodo)
+            .ToList();
+    }
+}

@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Models.Horario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<p>
+    <a asp-controller="Horario" asp-action="Cadastrar" class="btn btn-primary">Novo Horário</a>
+</p>
+@if (Model == null)
+{
+    <p> Não existe horário cadastrado !</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Disciplina)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Disciplina.Professor)
+                </th>
+                <th>
+                    Ano / Periodo
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Disciplina.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Disciplina.Professor.Nome)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ano.Periodo)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29201.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEB", "WEB\WEB.csproj", "{A03818A0-8202-4570-8EE0-C9B5A39803DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{FE4F3FB0-FFAF-4D0A-AB76-DC18D417864C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Persistencia", "Persistencia\Persistencia.csproj", "{8ECD8291-569E-482B-965C-56604F6BCE91}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A03818A0-8202-4570-8EE0-C9B5A39803DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A03818A0-8202-4570-8EE0-C9B5A39803DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A03818A0-8202-4570-8EE0-C9B5A39803DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A03818A0-8202-4570-8EE0-C9B5A39803DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE4F3FB0-FFAF-4D0A-AB76-DC18D417864C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE4F3FB0-FFAF-4D0A-AB76-DC18D417864C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE4F3FB0-FFAF-4D0A-AB76-DC18D417864C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE4F3FB0-FFAF-4D0A-AB76-DC18D417864C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8ECD8291-569E-482B-965C-56604F6BCE91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ECD8291-569E-482B-965C-56604F6BCE91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ECD8291-569E-482B-965C-56604F6BCE91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8ECD8291-569E-482B-965C-56604F6BCE91}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AD13B4E2-3FDB-4077-A9E1-A278CADE5E14}
+	EndGlobalSection
+EndGlobal

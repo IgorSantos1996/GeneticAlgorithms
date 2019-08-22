@@ -1,0 +1,12 @@
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Persistencia\bin\Debug\netcoreapp2.2\Models.dll
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Persistencia\obj\Debug\netcoreapp2.2\Persistencia.csprojAssemblyReference.cache
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Persistencia\obj\Debug\netcoreapp2.2\Persistencia.csproj.CoreCompileInputs.cache
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Persistencia\obj\Debug\netcoreapp2.2\Persistencia.AssemblyInfoInputs.cache
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Persistencia\obj\Debug\netcoreapp2.2\Persistencia.AssemblyInfo.cs
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Persistencia\bin\Debug\netcoreapp2.2\Persistencia.deps.json
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Persistencia\bin\Debug\netcoreapp2.2\Persistencia.dll
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Persistencia\bin\Debug\netcoreapp2.2\Persistencia.pdb
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Persistencia\bin\Debug\netcoreapp2.2\Models.pdb
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Persistencia\obj\Debug\netcoreapp2.2\Persistencia.csproj.CopyComplete
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Persistencia\obj\Debug\netcoreapp2.2\Persistencia.dll
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Persistencia\obj\Debug\netcoreapp2.2\Persistencia.pdb
