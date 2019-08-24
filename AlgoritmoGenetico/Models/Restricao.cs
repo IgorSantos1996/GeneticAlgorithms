@@ -21,5 +21,9 @@ namespace Models
         public int IdAno { get; set; }
         [Column("idprofessor")]
         public int IdProfessor { get; set; }
+        [ForeignKey("IdAno")]
+        public virtual Ano Ano { get; set; }
+        [ForeignKey("IdProfessor")]
+        public virtual Professor Professor { get; set; }
     }
 }

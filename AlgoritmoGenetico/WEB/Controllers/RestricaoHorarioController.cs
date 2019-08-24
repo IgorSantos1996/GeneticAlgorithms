@@ -10,57 +10,58 @@ using Persistencia;
 
 namespace WEB.Controllers
 {
-    public class DisciplinaController : Controller
+    public class RestricaoHorarioController : Controller
     {
-        private readonly PersistenciaDisciplina persistenciaDisciplina;
-        private readonly PersistenciaProfessor persistenciaProfessor;
+        private readonly PersistenciaRestricaoHorario persistenciaRestricaoHorario;
+        private readonly PersistenciaAno persistenciaAno;
 
-        public DisciplinaController(DbContextAG contexto)
+        public RestricaoHorarioController(DbContextAG contexto)
         {
-            persistenciaDisciplina = new PersistenciaDisciplina(contexto);
-            persistenciaProfessor = new PersistenciaProfessor(contexto);
+            persistenciaRestricaoHorario = new PersistenciaRestricaoHorario(contexto);
+            persistenciaAno = new PersistenciaAno(contexto);
         }
 
-        // GET: Disciplina
+
+        // GET: RestricaoHorario
         public IActionResult Index()
         {
-            var lista = persistenciaDisciplina.ObterTodos();
+            var lista = persistenciaRestricaoHorario.ObterTodos();
             return View(lista);
         }
 
-        // GET: Disciplina/Details/5
+        // GET: RestricaoHorario/Details/5
         public IActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Disciplina/Create
+        // GET: RestricaoHorario/Create
         public IActionResult Cadastrar()
         {
-            ViewBag.AllProfessores = new SelectList(persistenciaProfessor.ObterTodos(), "Id", "Nome");
+            ViewBag.AllAno = new SelectList(persistenciaAno.ObterTodos(), "Id", "Periodo");
             return View();
         }
 
-        // POST: Disciplina/Create
+        // POST: RestricaoHorario/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Cadastrar(Disciplina disciplina)
+        public IActionResult Cadastrar(RestricaoHorario restricaoHorario)
         {
             if (ModelState.IsValid)
             {
-                persistenciaDisciplina.Adicionar(disciplina);
+                persistenciaRestricaoHorario.Adicionar(restricaoHorario);
                 return RedirectToAction(nameof(Index));
             }
-            return View(disciplina);
+            return View(restricaoHorario);
         }
 
-        // GET: Disciplina/Edit/5
+        // GET: RestricaoHorario/Edit/5
         public IActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Disciplina/Edit/5
+        // POST: RestricaoHorario/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, IFormCollection collection)
@@ -77,13 +78,13 @@ namespace WEB.Controllers
             }
         }
 
-        // GET: Disciplina/Delete/5
+        // GET: RestricaoHorario/Delete/5
         public IActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Disciplina/Delete/5
+        // POST: RestricaoHorario/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id, IFormCollection collection)

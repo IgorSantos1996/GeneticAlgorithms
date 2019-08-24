@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Models.Restricao>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Cadastrar">Nova Restricao do professor</a>
+</p>
+@if (Model == null)
+{
+    <p> Não há restrições de dias dos professores cadastradas !</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Segunda)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Terca)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quarta)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Quinta)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Sexta)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ano)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Professor)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Segunda)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Terca)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quarta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quinta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sexta)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ano.Periodo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Professor.Nome)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

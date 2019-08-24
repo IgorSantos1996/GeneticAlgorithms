@@ -17,20 +17,20 @@ namespace WEB.Controllers
             => persistenciaProfessor = new PersistenciaProfessor(contexto);
 
         // GET: Professor
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var lista = persistenciaProfessor.ObterTodos();
             return View(lista);
         }
 
         // GET: Professor/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             return View();
         }
 
         // GET: Professor/Create
-        public ActionResult Cadastrar()
+        public IActionResult Cadastrar()
         {
             return View();
         }
@@ -38,7 +38,7 @@ namespace WEB.Controllers
         // POST: Professor/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Cadastrar(Professor professor)
+        public IActionResult Cadastrar(Professor professor)
         {
             if (ModelState.IsValid)
             {
@@ -49,7 +49,7 @@ namespace WEB.Controllers
         }
 
         // GET: Professor/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             return View();
         }
@@ -57,7 +57,7 @@ namespace WEB.Controllers
         // POST: Professor/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -72,7 +72,7 @@ namespace WEB.Controllers
         }
 
         // GET: Professor/Delete/5
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             return View();
         }
@@ -80,7 +80,7 @@ namespace WEB.Controllers
         // POST: Professor/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, IFormCollection collection)
         {
             try
             {

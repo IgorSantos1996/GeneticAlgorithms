@@ -23,8 +23,8 @@ namespace Persistencia
         public List<Disciplina> ObterTodosComProfessor()
             => _contexto
             .Disciplinas
-            .Include(p => p.Professor)
             .OrderBy(p => p.Periodo)
+            .Include(p => p.Professor)
             .Select(p => new Disciplina
             {
                 Id = p.Id,

@@ -16,20 +16,20 @@ namespace WEB.Controllers
         public AnoController(DbContextAG contexto) => persistenciaAno = new PersistenciaAno(contexto);
 
         // GET: Ano
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var lista = persistenciaAno.ObterTodos();
             return View(lista);
         }
 
         // GET: Ano/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             return View();
         }
 
         // GET: Ano/Create
-        public ActionResult Cadastrar()
+        public IActionResult Cadastrar()
         {
             return View();
         }
@@ -37,7 +37,7 @@ namespace WEB.Controllers
         // POST: Ano/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Cadastrar(Ano ano)
+        public IActionResult Cadastrar(Ano ano)
         {
             if (ModelState.IsValid)
             {
@@ -48,7 +48,7 @@ namespace WEB.Controllers
         }
 
         // GET: Ano/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             return View();
         }
@@ -56,7 +56,7 @@ namespace WEB.Controllers
         // POST: Ano/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace WEB.Controllers
         }
 
         // GET: Ano/Delete/5
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             return View();
         }
@@ -79,7 +79,7 @@ namespace WEB.Controllers
         // POST: Ano/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, IFormCollection collection)
         {
             try
             {

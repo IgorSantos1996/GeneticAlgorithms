@@ -26,20 +26,20 @@ namespace WEB.Controllers
         }
 
         // GET: Horario
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var lista = persistenciaHorario.ObterTodos();
             return View(lista);
         }
 
         // GET: Horario/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Details(int id)
         {
             return View();
         }
 
         // GET: Horario/Create
-        public ActionResult Cadastrar(string periodo = "")
+        public IActionResult Cadastrar(string periodo = "")
         {
             //if(string.IsNullOrEmpty(periodo))
                 ViewBag.AllAno = new SelectList(persistenciaAno.ObterTodos(), "Id", "Periodo");
@@ -53,7 +53,7 @@ namespace WEB.Controllers
         // POST: Horario/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Cadastrar(Horario horario)
+        public IActionResult Cadastrar(Horario horario)
         {
             if (ModelState.IsValid)
             {
@@ -64,7 +64,7 @@ namespace WEB.Controllers
         }
 
         // GET: Horario/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             return View();
         }
@@ -72,7 +72,7 @@ namespace WEB.Controllers
         // POST: Horario/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
@@ -87,7 +87,7 @@ namespace WEB.Controllers
         }
 
         // GET: Horario/Delete/5
-        public ActionResult Delete(int id)
+        public IActionResult Delete(int id)
         {
             return View();
         }
@@ -95,7 +95,7 @@ namespace WEB.Controllers
         // POST: Horario/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public IActionResult Delete(int id, IFormCollection collection)
         {
             try
             {

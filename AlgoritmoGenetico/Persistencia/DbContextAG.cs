@@ -12,5 +12,6 @@ namespace Persistencia
         public DbSet<Ano> Anos { get; set; }
         public DbSet<Horario> Horarios { get; set; }
         public DbSet<Restricao> Restricoes { get; set; }
+        public DbSet<RestricaoHorario> RestricaoHorarios { get; set; }
     }
 }

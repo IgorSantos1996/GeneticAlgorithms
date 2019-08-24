@@ -40,3 +40,7 @@ D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\Geneti
 D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\WEB\obj\Debug\netcoreapp2.2\Razor\Views\Ano\Cadastrar.g.cshtml.cs
 D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\WEB\obj\Debug\netcoreapp2.2\Razor\Views\Horario\Index.g.cshtml.cs
 D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\WEB\obj\Debug\netcoreapp2.2\Razor\Views\Horario\Cadastrar.g.cshtml.cs
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\WEB\obj\Debug\netcoreapp2.2\Razor\Views\RestricaoHorario\Index.g.cshtml.cs
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\WEB\obj\Debug\netcoreapp2.2\Razor\Views\RestricaoHorario\Cadastrar.g.cshtml.cs
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\WEB\obj\Debug\netcoreapp2.2\Razor\Views\Restricao\Index.g.cshtml.cs
+D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\WEB\obj\Debug\netcoreapp2.2\Razor\Views\Restricao\Cadastrar.g.cshtml.cs

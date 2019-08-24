@@ -38,14 +38,21 @@
                             <a class="nav-link text-dark btn btn-light" asp-controller="Ano" asp-action="Index">Período / Ano</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-light" asp-controller="" asp-action="">Restrições dias professor</a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-dark btn btn-light" asp-controller="Horario" asp-action="Index">Horário</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark btn btn-light" asp-controller="" asp-action="">Simular o Algoritmo Genético</a>
                         </li>
+                        <!-- Exemplo de único botão danger -->
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Restrições
+                            </button>
+                            <div class="dropdown-menu">
+                                <a class="nav-link text-dark btn btn-light" asp-controller="Restricao" asp-action="Index">Professores / Dias</a>
+                                <a class="nav-link text-dark btn btn-light" asp-controller="RestricaoHorario" asp-action="Index">Disciplina com horário fixo</a>
+                            </div>
+                        </div>
                     </ul>
                 </div>
             </div>
