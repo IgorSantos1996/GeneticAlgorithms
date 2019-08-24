@@ -25,10 +25,11 @@ namespace Persistencia
         public List<Horario> ObterTodos()
             => _contexto
             .Horarios
+            .OrderBy(h => h.Disciplina.Periodo)
+            .OrderBy(h => h.Ano.Periodo)
             .Include(h => h.Ano)
             .Include(h => h.Disciplina)
             .Include(h => h.Disciplina.Professor)
-            .OrderBy(h => h.Ano.Periodo)
             .ToList();
     }
 }

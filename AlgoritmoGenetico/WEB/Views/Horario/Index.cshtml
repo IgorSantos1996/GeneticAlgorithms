@@ -44,7 +44,8 @@ else
                         @Html.DisplayFor(modelItem => item.Disciplina.Professor.Nome)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Ano.Periodo)
+                        @Html.DisplayFor(modelItem => item.Ano.Periodo) /
+                        @Html.DisplayFor(modelItem => item.Disciplina.Periodo)
                     </td>
                     <td>
                         @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
