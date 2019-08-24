@@ -39,6 +39,8 @@ namespace Models
         public bool SextaHorario2 { get; set; }
         [Column("sexta3")]
         public bool SextaHorario3 { get; set; }
+        [Column("periodo")]
+        public int Periodo { get; set; }
         [Column("idano")]
         public int IdAno { get; set; }
         [ForeignKey("IdAno")]
