@@ -1,0 +1,9 @@
+.vs/
+Business/bin/
+Business/obj/
+Models/bin/
+Models/obj/
+Persistencia/bin/
+Persistencia/obj/
+WEB/bin/
+WEB/obj/
