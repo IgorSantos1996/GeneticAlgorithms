@@ -11,7 +11,7 @@ namespace Persistencia
         public DbSet<Disciplina> Disciplinas { get; set; }
         public DbSet<Ano> Anos { get; set; }
         public DbSet<Horario> Horarios { get; set; }
-        public DbSet<Restricao> Restricoes { get; set; }
+        public DbSet<RestricaoProfessor> RestricoesProfessores { get; set; }
         public DbSet<RestricaoHorario> RestricaoHorarios { get; set; }
     }
 }

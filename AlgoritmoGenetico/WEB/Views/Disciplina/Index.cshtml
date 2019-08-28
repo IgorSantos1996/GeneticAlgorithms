@@ -29,6 +29,9 @@ else
                 <th>
                     @Html.DisplayNameFor(model => model.Professor)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Horas)
+                </th>
                 <th></th>
             </tr>
         </thead>
@@ -47,6 +50,9 @@ else
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Professor.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Horas)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

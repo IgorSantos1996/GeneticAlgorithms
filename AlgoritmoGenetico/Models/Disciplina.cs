@@ -11,6 +11,8 @@ namespace Models
         public string Nome { get; set; }
         [Column("periodo")]
         public int Periodo { get; set; }
+        [Column("horas")]
+        public int Horas { get; set; }
         [Column("idprofessor")]
         public int IdProfessor { get; set; }
         [ForeignKey("IdProfessor")]

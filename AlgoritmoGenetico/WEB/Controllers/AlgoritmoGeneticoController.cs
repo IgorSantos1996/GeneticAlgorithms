@@ -10,9 +10,17 @@ namespace WEB.Controllers
 {
     public class AlgoritmoGeneticoController : Controller
     {
-        // GET: AlgoritmoGenetico
-        public ActionResult Index()
+        private readonly PersistenciaAlgoritmoGenetico persistenciaAlgoritmoGenetico;
+
+        public AlgoritmoGeneticoController(DbContextAG contexto)
         {
+            persistenciaAlgoritmoGenetico = new PersistenciaAlgoritmoGenetico(contexto);
+        }
+
+        // GET: AlgoritmoGenetico
+        public IActionResult Index(string ano)
+        {
+            var população = persistenciaAlgoritmoGenetico.InicializarPopulação(ano);
             return View();
         }
 

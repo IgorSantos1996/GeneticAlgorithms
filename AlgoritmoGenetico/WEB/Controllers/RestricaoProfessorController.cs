@@ -1,4 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
@@ -6,33 +10,33 @@ using Persistencia;
 
 namespace WEB.Controllers
 {
-    public class RestricaoController : Controller
+    public class RestricaoProfessorController : Controller
     {
-        private readonly PersistenciaRestricao persistenciaRestricao;
+        private readonly PersistenciaRestricaoProfessor persistenciaRestricaoProfessor;
         private readonly PersistenciaProfessor persistenciaProfessor;
         private readonly PersistenciaAno persistenciaAno;
 
-        public RestricaoController(DbContextAG contexto)
+        public RestricaoProfessorController(DbContextAG contexto)
         {
-            persistenciaRestricao = new PersistenciaRestricao(contexto);
+            persistenciaRestricaoProfessor = new PersistenciaRestricaoProfessor(contexto);
             persistenciaProfessor = new PersistenciaProfessor(contexto);
             persistenciaAno = new PersistenciaAno(contexto);
         }
 
-        // GET: Restricao
+        // GET: RestricaoProfessor
         public IActionResult Index()
         {
-            var lista = persistenciaRestricao.ObterTodos();
+            var lista = persistenciaRestricaoProfessor.ObterTodos();
             return View(lista);
         }
 
-        // GET: Restricao/Details/5
+        // GET: RestricaoProfessor/Details/5
         public IActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: Restricao/Create
+        // GET: RestricaoProfessor/Create
         public IActionResult Cadastrar()
         {
             ViewBag.AllProfessores = new SelectList(persistenciaProfessor.ObterTodos(), "Id", "Nome");
@@ -40,26 +44,26 @@ namespace WEB.Controllers
             return View();
         }
 
-        // POST: Restricao/Create
+        // POST: RestricaoProfessor/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Cadastrar(Restricao restricao)
+        public IActionResult Cadastrar(RestricaoProfessor restricao)
         {
             if (ModelState.IsValid)
             {
-                persistenciaRestricao.Adiconar(restricao);
+                persistenciaRestricaoProfessor.Adiconar(restricao);
                 return RedirectToAction(nameof(Index));
             }
             return View(restricao);
         }
 
-        // GET: Restricao/Edit/5
+        // GET: RestricaoProfessor/Edit/5
         public IActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: Restricao/Edit/5
+        // POST: RestricaoProfessor/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, IFormCollection collection)
@@ -76,13 +80,13 @@ namespace WEB.Controllers
             }
         }
 
-        // GET: Restricao/Delete/5
+        // GET: RestricaoProfessor/Delete/5
         public IActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: Restricao/Delete/5
+        // POST: RestricaoProfessor/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(int id, IFormCollection collection)
