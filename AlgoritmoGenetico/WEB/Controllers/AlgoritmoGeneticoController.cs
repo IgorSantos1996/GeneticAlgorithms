@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Models;
 using Persistencia;
 
 namespace WEB.Controllers
@@ -18,10 +19,23 @@ namespace WEB.Controllers
         }
 
         // GET: AlgoritmoGenetico
-        public IActionResult Index(string ano)
+        public IActionResult Index(string ano, string acao = "", List<Individuo> individuos = null)
         {
-            var população = persistenciaAlgoritmoGenetico.InicializarPopulação(ano);
-            return View();
+            List<Individuo> populacao = null;
+            if (individuos.Count != 0)
+            {
+                populacao = persistenciaAlgoritmoGenetico.FuncaoFitness(individuos);
+            }
+            else
+            {
+                populacao = persistenciaAlgoritmoGenetico.AlgoritmoGenetico(ano);
+                if (acao.Equals("avaliarpopulacao"))
+                {
+                    populacao = persistenciaAlgoritmoGenetico.FuncaoFitness(populacao);
+                }
+            }
+
+            return View(populacao);
         }
 
         // GET: AlgoritmoGenetico/Details/5

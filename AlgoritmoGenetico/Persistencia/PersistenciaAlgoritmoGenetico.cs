@@ -20,18 +20,25 @@ namespace Persistencia
         public List<Individuo> AlgoritmoGenetico(string ano)
         {
             var arrayIndividuo = InicializarPopulação(ano);
+            // array de individuos avaliados
+            arrayIndividuo = FuncaoFitness(arrayIndividuo);
+            // escolher mais aptos para cross-over
+
+            // cross-over e/ou mutação
+
+            // concepção da nova geração
 
             return arrayIndividuo;
         }
 
-        public List<Individuo> InicializarPopulação(string ano)
+        private List<Individuo> InicializarPopulação(string ano)
         {
             List<Individuo> arrayIndividuo = new List<Individuo>();
 
-            var horariosBanco = getHorarios(ano);
-
             for (int i = 0; i < qtdIndividuos; i++)
             {
+                var horariosBanco = getHorarios(ano);
+
                 individuo = CriarIndividuo(horariosBanco, ano);
 
                 arrayIndividuo.Add(individuo);
@@ -65,6 +72,7 @@ namespace Persistencia
             Random random = new Random();
 
             var arraySorteia = Sorteador.GetSorteia(periodo1_2, periodo3_4, periodo5_6, periodo7_8);
+
             arraySorteia = RemoveHorarioComReserva(arraySorteia, ano);
 
             while (horarios.Count > 0)
@@ -134,7 +142,233 @@ namespace Persistencia
             }
             return individuo;
         }
+        // avaliar os individuos
+        public List<Individuo> FuncaoFitness(List<Individuo> individuos)
+        {
+            List<Individuo> arrayIndividuos = new List<Individuo> ();
 
+            foreach(var item in individuos)
+            {
+                var individuo = Restricao1(item);
+                // r2
+                // r3
+
+                arrayIndividuos.Add(individuo);
+            }
+
+            // retricao 1
+            /* Disciplina de 6 créditos com todas as aulas no mesmo dia */
+
+            // retricao 2
+            /* Disciplina de André na Sexta, pegar restricao de professores no banco */
+
+            // retricao 3
+            /* Disciplina de 60h ou 4 creditos com horario quebrado no mesmo dia */
+
+            return arrayIndividuos;
+        }
+
+        /* Disciplina de 6 créditos com todas as aulas no mesmo dia */
+        private Individuo Restricao1(Individuo individuo)
+        {
+            int penalizacao = 5;
+            int aptidao = 100;
+            var disciplinas6Creditos = GetDisciplinasNCreditos(6);
+
+            // 1 ou 2 periodo
+            if (individuo.Periodo_1_2.Segunda.Disciplina_1Horario != null) // p1 - 90h ou 6 creditos
+            {
+                if(individuo.Periodo_1_2.Segunda.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Segunda.Disciplina_2Horario)
+                    && individuo.Periodo_1_2.Segunda.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Segunda.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_1_2.Segunda.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_1_2.Terca.Disciplina_1Horario != null)
+            {
+                if(individuo.Periodo_1_2.Terca.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Terca.Disciplina_2Horario)
+                    && individuo.Periodo_1_2.Terca.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Terca.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_1_2.Terca.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_1_2.Quarta.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_1_2.Quarta.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Quarta.Disciplina_2Horario)
+                    && individuo.Periodo_1_2.Quarta.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Quarta.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_1_2.Quarta.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_1_2.Quinta.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_1_2.Quinta.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Quinta.Disciplina_2Horario)
+                    && individuo.Periodo_1_2.Quinta.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Quinta.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_1_2.Quinta.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_1_2.Sexta.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_1_2.Sexta.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Sexta.Disciplina_2Horario)
+                    && individuo.Periodo_1_2.Sexta.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Sexta.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_1_2.Sexta.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+
+            // 3 ou 4 periodo
+            if (individuo.Periodo_3_4.Segunda.Disciplina_1Horario != null) // p1 - 90h ou 6 creditos
+            {
+                if (individuo.Periodo_3_4.Segunda.Disciplina_1Horario.Equals(individuo.Periodo_3_4.Segunda.Disciplina_2Horario)
+                    && individuo.Periodo_3_4.Segunda.Disciplina_1Horario.Equals(individuo.Periodo_3_4.Segunda.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_3_4.Segunda.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_3_4.Terca.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_3_4.Terca.Disciplina_1Horario.Equals(individuo.Periodo_3_4.Terca.Disciplina_2Horario)
+                    && individuo.Periodo_3_4.Terca.Disciplina_1Horario.Equals(individuo.Periodo_3_4.Terca.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_3_4.Terca.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_3_4.Quarta.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_3_4.Quarta.Disciplina_1Horario.Equals(individuo.Periodo_3_4.Quarta.Disciplina_2Horario)
+                    && individuo.Periodo_3_4.Quarta.Disciplina_1Horario.Equals(individuo.Periodo_3_4.Quarta.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_3_4.Quarta.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_3_4.Quinta.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_3_4.Quinta.Disciplina_1Horario.Equals(individuo.Periodo_3_4.Quinta.Disciplina_2Horario)
+                    && individuo.Periodo_3_4.Quinta.Disciplina_1Horario.Equals(individuo.Periodo_3_4.Quinta.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_3_4.Quinta.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_3_4.Sexta.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_3_4.Sexta.Disciplina_1Horario.Equals(individuo.Periodo_3_4.Sexta.Disciplina_2Horario)
+                    && individuo.Periodo_3_4.Sexta.Disciplina_1Horario.Equals(individuo.Periodo_3_4.Sexta.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_3_4.Sexta.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+
+            // 5 ou 6 periodo
+            if (individuo.Periodo_5_6.Segunda.Disciplina_1Horario != null) // p1 - 90h ou 6 creditos
+            {
+                if (individuo.Periodo_5_6.Segunda.Disciplina_1Horario.Equals(individuo.Periodo_5_6.Segunda.Disciplina_2Horario)
+                    && individuo.Periodo_5_6.Segunda.Disciplina_1Horario.Equals(individuo.Periodo_5_6.Segunda.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_5_6.Segunda.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_5_6.Terca.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_5_6.Terca.Disciplina_1Horario.Equals(individuo.Periodo_5_6.Terca.Disciplina_2Horario)
+                    && individuo.Periodo_5_6.Terca.Disciplina_1Horario.Equals(individuo.Periodo_5_6.Terca.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_5_6.Terca.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_5_6.Quarta.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_5_6.Quarta.Disciplina_1Horario.Equals(individuo.Periodo_5_6.Quarta.Disciplina_2Horario)
+                    && individuo.Periodo_5_6.Quarta.Disciplina_1Horario.Equals(individuo.Periodo_5_6.Quarta.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_5_6.Quarta.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_5_6.Quinta.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_5_6.Quinta.Disciplina_1Horario.Equals(individuo.Periodo_5_6.Quinta.Disciplina_2Horario)
+                    && individuo.Periodo_5_6.Quinta.Disciplina_1Horario.Equals(individuo.Periodo_5_6.Quinta.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_5_6.Quinta.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_5_6.Sexta.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_5_6.Sexta.Disciplina_1Horario.Equals(individuo.Periodo_5_6.Sexta.Disciplina_2Horario)
+                    && individuo.Periodo_5_6.Sexta.Disciplina_1Horario.Equals(individuo.Periodo_5_6.Sexta.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_5_6.Sexta.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+
+            // 7 ou 8 periodo
+            if (individuo.Periodo_7_8.Segunda.Disciplina_1Horario != null) // p1 - 90h ou 6 creditos
+            {
+                if (individuo.Periodo_7_8.Segunda.Disciplina_1Horario.Equals(individuo.Periodo_7_8.Segunda.Disciplina_2Horario)
+                    && individuo.Periodo_7_8.Segunda.Disciplina_1Horario.Equals(individuo.Periodo_7_8.Segunda.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_7_8.Segunda.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_7_8.Terca.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_7_8.Terca.Disciplina_1Horario.Equals(individuo.Periodo_7_8.Terca.Disciplina_2Horario)
+                    && individuo.Periodo_7_8.Terca.Disciplina_1Horario.Equals(individuo.Periodo_7_8.Terca.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_7_8.Terca.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_7_8.Quarta.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_7_8.Quarta.Disciplina_1Horario.Equals(individuo.Periodo_7_8.Quarta.Disciplina_2Horario)
+                    && individuo.Periodo_7_8.Quarta.Disciplina_1Horario.Equals(individuo.Periodo_7_8.Quarta.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_7_8.Quarta.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_7_8.Quinta.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_7_8.Quinta.Disciplina_1Horario.Equals(individuo.Periodo_7_8.Quinta.Disciplina_2Horario)
+                    && individuo.Periodo_7_8.Quinta.Disciplina_1Horario.Equals(individuo.Periodo_7_8.Quinta.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_7_8.Quinta.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            if (individuo.Periodo_7_8.Sexta.Disciplina_1Horario != null)
+            {
+                if (individuo.Periodo_7_8.Sexta.Disciplina_1Horario.Equals(individuo.Periodo_7_8.Sexta.Disciplina_2Horario)
+                    && individuo.Periodo_7_8.Sexta.Disciplina_1Horario.Equals(individuo.Periodo_7_8.Sexta.Disciplina_3Horario)
+                    && disciplinas6Creditos.Contains(individuo.Periodo_7_8.Sexta.Disciplina_1Horario))
+                {
+                    aptidao -= penalizacao;
+                }
+            }
+            return individuo;
+        }
+        private List<Disciplina> GetDisciplinasNCreditos(int nHoras)
+            => _contexto
+                .Disciplinas
+                .Where(d => d.Horas == nHoras)
+                .ToList();
         // Metodo criado para verificar a existência de uma disciplina já cadastrada no indiviuo em determinado dia e horario
         private bool ExisteDisciplinaNoIndividuo(Periodo periodo, int dia, int horarioDisciplina)
         {
@@ -142,63 +376,62 @@ namespace Persistencia
             {
                 case 1: // segunda
                     if (horarioDisciplina == 1) //1º horario
-                        if (periodo.Segunda.Disciplina_1Horario != -1) // já existe disciplina cadastrada
+                        if (periodo.Segunda.Disciplina_1Horario != null) // já existe disciplina cadastrada
                             return true;
                     if (horarioDisciplina == 2) //2º horario
-                        if (periodo.Segunda.Disciplina_2Horario != -1)
+                        if (periodo.Segunda.Disciplina_2Horario != null)
                             return true;
                     if (horarioDisciplina == 3) //3º horario
-                        if (periodo.Segunda.Disciplina_3Horario != -1)
+                        if (periodo.Segunda.Disciplina_3Horario != null)
                             return true;
                     break;
                 case 2: // terça
                     if (horarioDisciplina == 1) //1º horario
-                        if (periodo.Terca.Disciplina_1Horario != -1)
+                        if (periodo.Terca.Disciplina_1Horario != null)
                             return true;
                     if (horarioDisciplina == 2) //2º horario
-                        if (periodo.Terca.Disciplina_2Horario != -1)
+                        if (periodo.Terca.Disciplina_2Horario != null)
                             return true;
                     if (horarioDisciplina == 3) //3º horario
-                        if (periodo.Terca.Disciplina_3Horario != -1)
+                        if (periodo.Terca.Disciplina_3Horario != null)
                             return true;
                     break;
                 case 3: // quarta
                     if (horarioDisciplina == 1) //1º horario
-                        if (periodo.Quarta.Disciplina_1Horario != -1)
+                        if (periodo.Quarta.Disciplina_1Horario != null)
                             return true;
                     if (horarioDisciplina == 2) //2º horario
-                        if (periodo.Quarta.Disciplina_2Horario != -1)
+                        if (periodo.Quarta.Disciplina_2Horario != null)
                             return true;
                     if (horarioDisciplina == 3) //3º horario
-                        if (periodo.Quarta.Disciplina_3Horario != -1)
+                        if (periodo.Quarta.Disciplina_3Horario != null)
                             return true;
                     break;
                 case 4: // quinta
                     if (horarioDisciplina == 1) //1º horario
-                        if (periodo.Quinta.Disciplina_1Horario != -1)
+                        if (periodo.Quinta.Disciplina_1Horario != null)
                             return true;
                     if (horarioDisciplina == 2) //2º horario
-                        if (periodo.Quinta.Disciplina_2Horario != -1)
+                        if (periodo.Quinta.Disciplina_2Horario != null)
                             return true;
                     if (horarioDisciplina == 3) //3º horario
-                        if (periodo.Quinta.Disciplina_3Horario != -1)
+                        if (periodo.Quinta.Disciplina_3Horario != null)
                             return true;
                     break;
                 case 5: // sexta
                     if (horarioDisciplina == 1) //1º horario
-                        if (periodo.Sexta.Disciplina_1Horario != -1)
+                        if (periodo.Sexta.Disciplina_1Horario != null)
                             return true;
                     if (horarioDisciplina == 2) //2º horario
-                        if (periodo.Sexta.Disciplina_2Horario != -1)
+                        if (periodo.Sexta.Disciplina_2Horario != null)
                             return true;
                     if (horarioDisciplina == 3) //3º horario
-                        if (periodo.Sexta.Disciplina_3Horario != -1)
+                        if (periodo.Sexta.Disciplina_3Horario != null)
                             return true;
                     break;
             }
             return false;
         }
-
         // retorna dia e horario respectivamente
         private (int, int, List<Sorteador>) GetSortDiaOrHorario(List<Sorteador> sorts, int periodo)
         {
@@ -234,220 +467,220 @@ namespace Persistencia
                     if (horarioDisciplina == 1)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Segunda.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Segunda.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Segunda.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Segunda.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Segunda.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Segunda.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Segunda.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Segunda.Disciplina_1Horario = disciplina;
                     }
                     if (horarioDisciplina == 2)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Segunda.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Segunda.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Segunda.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Segunda.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Segunda.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Segunda.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Segunda.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Segunda.Disciplina_2Horario = disciplina;
                     }
                     if (horarioDisciplina == 3)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Segunda.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Segunda.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Segunda.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Segunda.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Segunda.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Segunda.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Segunda.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Segunda.Disciplina_3Horario = disciplina;
                     }
                     break;
                 case 2: // terça
                     if (horarioDisciplina == 1)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Terca.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Terca.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Terca.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Terca.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Terca.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Terca.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Terca.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Terca.Disciplina_1Horario = disciplina;
                     }
                     if (horarioDisciplina == 2)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Terca.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Terca.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Terca.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Terca.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Terca.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Terca.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Terca.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Terca.Disciplina_2Horario = disciplina;
                     }
                     if (horarioDisciplina == 3)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Terca.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Terca.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Terca.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Terca.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Terca.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Terca.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Terca.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Terca.Disciplina_3Horario = disciplina;
                     }
                     break;
                 case 3: // quarta
                     if (horarioDisciplina == 1)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Quarta.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Quarta.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Quarta.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Quarta.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Quarta.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Quarta.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Quarta.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Quarta.Disciplina_1Horario = disciplina;
                     }
                     if (horarioDisciplina == 2)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Quarta.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Quarta.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Quarta.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Quarta.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Quarta.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Quarta.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Quarta.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Quarta.Disciplina_2Horario = disciplina;
                     }
                     if (horarioDisciplina == 3)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Quarta.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Quarta.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Quarta.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Quarta.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Quarta.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Quarta.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Quarta.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Quarta.Disciplina_3Horario = disciplina;
                     }
                     break;
                 case 4: // quinta
                     if (horarioDisciplina == 1)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Quinta.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Quinta.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Quinta.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Quinta.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Quinta.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Quinta.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Quinta.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Quinta.Disciplina_1Horario = disciplina;
                     }
                     if (horarioDisciplina == 2)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Quinta.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Quinta.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Quinta.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Quinta.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Quinta.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Quinta.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Quinta.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Quinta.Disciplina_2Horario = disciplina;
                     }
                     if (horarioDisciplina == 3)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Quinta.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Quinta.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Quinta.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Quinta.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Quinta.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Quinta.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Quinta.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Quinta.Disciplina_3Horario = disciplina;
                     }
                     break;
                 case 5: // sexta
                     if (horarioDisciplina == 1)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Sexta.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Sexta.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Sexta.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Sexta.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Sexta.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Sexta.Disciplina_1Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Sexta.Disciplina_1Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Sexta.Disciplina_1Horario = disciplina;
                     }
                     if (horarioDisciplina == 2)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Sexta.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Sexta.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Sexta.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Sexta.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Sexta.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Sexta.Disciplina_2Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Sexta.Disciplina_2Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Sexta.Disciplina_2Horario = disciplina;
                     }
                     if (horarioDisciplina == 3)
                     {
                         if (disciplina.Periodo == 1 || disciplina.Periodo == 2)
-                            individuo.Periodo_1_2.Sexta.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_1_2.Sexta.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 3 || disciplina.Periodo == 4)
-                            individuo.Periodo_3_4.Sexta.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_3_4.Sexta.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 5 || disciplina.Periodo == 6)
-                            individuo.Periodo_5_6.Sexta.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_5_6.Sexta.Disciplina_3Horario = disciplina;
 
                         if (disciplina.Periodo == 7 || disciplina.Periodo == 8)
-                            individuo.Periodo_7_8.Sexta.Disciplina_3Horario = disciplina.Id;
+                            individuo.Periodo_7_8.Sexta.Disciplina_3Horario = disciplina;
                     }
                     break;
             }

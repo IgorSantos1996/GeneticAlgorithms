@@ -2,28 +2,191 @@
 
 @{
     ViewData["Title"] = "Index";
+    var contInd = 0;
 }
+<div class="row">
+    @foreach (var item in Model)
+    {
+        contInd++;
+        var individuo = "individuo" + contInd;
+        <div class="col-sm-3">
+            <p>
+                <a class="btn btn-primary col-sm-10" data-toggle="collapse" href="#@individuo" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    @individuo.ToUpper()
+                    <br /><label> Aptidão: @item.Aptidao </label>
+                </a>
+            </p>
+        </div>
+        <div class="collapse" id="@individuo">
+            <div class="card card-body">
+                <table border="1">
+                    <!-- 1º ou 2º PERIODO -->
+                    <thead>
+                        <tr>
+                            <th colspan="6" style="text-align: center"> PERIODO </th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th style="text-align: center">SEGUNDA</th>
+                            <th style="text-align: center">TERÇA</th>
+                            <th style="text-align: center">QUARTA</th>
+                            <th style="text-align: center">QUINTA</th>
+                            <th style="text-align: center">SEXTA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center"><b>7h às 8:50h</b></td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Segunda.Disciplina_1Horario != null ? item.Periodo_1_2.Segunda.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Terca.Disciplina_1Horario != null ? item.Periodo_1_2.Terca.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Quarta.Disciplina_1Horario != null ? item.Periodo_1_2.Quarta.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Quinta.Disciplina_1Horario != null ? item.Periodo_1_2.Quinta.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Sexta.Disciplina_1Horario != null ? item.Periodo_1_2.Sexta.Disciplina_1Horario.Nome : "---")  </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><b>9h às 10:50h</b></td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Segunda.Disciplina_2Horario != null ? item.Periodo_1_2.Segunda.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Terca.Disciplina_2Horario != null ? item.Periodo_1_2.Terca.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Quarta.Disciplina_2Horario != null ? item.Periodo_1_2.Quarta.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Quinta.Disciplina_2Horario != null ? item.Periodo_1_2.Quinta.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Sexta.Disciplina_2Horario != null ? item.Periodo_1_2.Sexta.Disciplina_2Horario.Nome : "---")  </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><b>11h às 12:50</b></td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Segunda.Disciplina_3Horario != null ? item.Periodo_1_2.Segunda.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Terca.Disciplina_3Horario != null ? item.Periodo_1_2.Terca.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Quarta.Disciplina_3Horario != null ? item.Periodo_1_2.Quarta.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Quinta.Disciplina_3Horario != null ? item.Periodo_1_2.Quinta.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_1_2.Sexta.Disciplina_3Horario != null ? item.Periodo_1_2.Sexta.Disciplina_3Horario.Nome : "---")  </td>
+                        </tr>
+                    </tbody>
 
-<h1>Index</h1>
+                    <!-- 3º ou 4º PERIODO -->
+                    <thead>
+                        <tr>
+                            <th colspan="6" style="text-align: center"> PERIODO </th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th style="text-align: center">SEGUNDA</th>
+                            <th style="text-align: center">TERÇA</th>
+                            <th style="text-align: center">QUARTA</th>
+                            <th style="text-align: center">QUINTA</th>
+                            <th style="text-align: center">SEXTA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center"><b>7h às 8:50h</b></td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Segunda.Disciplina_1Horario != null ? item.Periodo_3_4.Segunda.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Terca.Disciplina_1Horario != null ? item.Periodo_3_4.Terca.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Quarta.Disciplina_1Horario != null ? item.Periodo_3_4.Quarta.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Quinta.Disciplina_1Horario != null ? item.Periodo_3_4.Quinta.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Sexta.Disciplina_1Horario != null ? item.Periodo_3_4.Sexta.Disciplina_1Horario.Nome : "---")  </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><b>9h às 10:50h</b></td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Segunda.Disciplina_2Horario != null ? item.Periodo_3_4.Segunda.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Terca.Disciplina_2Horario != null ? item.Periodo_3_4.Terca.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Quarta.Disciplina_2Horario != null ? item.Periodo_3_4.Quarta.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Quinta.Disciplina_2Horario != null ? item.Periodo_3_4.Quinta.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Sexta.Disciplina_2Horario != null ? item.Periodo_3_4.Sexta.Disciplina_2Horario.Nome : "---")  </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><b>11h às 12:50</b></td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Segunda.Disciplina_3Horario != null ? item.Periodo_3_4.Segunda.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Terca.Disciplina_3Horario != null ? item.Periodo_3_4.Terca.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Quarta.Disciplina_3Horario != null ? item.Periodo_3_4.Quarta.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Quinta.Disciplina_3Horario != null ? item.Periodo_3_4.Quinta.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_3_4.Sexta.Disciplina_3Horario != null ? item.Periodo_3_4.Sexta.Disciplina_3Horario.Nome : "---")  </td>
+                        </tr>
+                    </tbody>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                    <!-- 5º ou 6º PERIODO -->
+                    <thead>
+                        <tr>
+                            <th colspan="6" style="text-align: center"> PERIODO </th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th style="text-align: center">SEGUNDA</th>
+                            <th style="text-align: center">TERÇA</th>
+                            <th style="text-align: center">QUARTA</th>
+                            <th style="text-align: center">QUINTA</th>
+                            <th style="text-align: center">SEXTA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center"><b>7h às 8:50h</b></td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Segunda.Disciplina_1Horario != null ? item.Periodo_5_6.Segunda.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Terca.Disciplina_1Horario != null ? item.Periodo_5_6.Terca.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Quarta.Disciplina_1Horario != null ? item.Periodo_5_6.Quarta.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Quinta.Disciplina_1Horario != null ? item.Periodo_5_6.Quinta.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Sexta.Disciplina_1Horario != null ? item.Periodo_5_6.Sexta.Disciplina_1Horario.Nome : "---")  </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><b>9h às 10:50h</b></td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Segunda.Disciplina_2Horario != null ? item.Periodo_5_6.Segunda.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Terca.Disciplina_2Horario != null ? item.Periodo_5_6.Terca.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Quarta.Disciplina_2Horario != null ? item.Periodo_5_6.Quarta.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Quinta.Disciplina_2Horario != null ? item.Periodo_5_6.Quinta.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Sexta.Disciplina_2Horario != null ? item.Periodo_5_6.Sexta.Disciplina_2Horario.Nome : "---")  </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><b>11h às 12:50</b></td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Segunda.Disciplina_3Horario != null ? item.Periodo_5_6.Segunda.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Terca.Disciplina_3Horario != null ? item.Periodo_5_6.Terca.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Quarta.Disciplina_3Horario != null ? item.Periodo_5_6.Quarta.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Quinta.Disciplina_3Horario != null ? item.Periodo_5_6.Quinta.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_5_6.Sexta.Disciplina_3Horario != null ? item.Periodo_5_6.Sexta.Disciplina_3Horario.Nome : "---")  </td>
+                        </tr>
+                    </tbody>
+
+                    <!-- 7º ou 8º PERIODO -->
+                    <thead>
+                        <tr>
+                            <th colspan="6" style="text-align: center"> PERIODO </th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th style="text-align: center">SEGUNDA</th>
+                            <th style="text-align: center">TERÇA</th>
+                            <th style="text-align: center">QUARTA</th>
+                            <th style="text-align: center">QUINTA</th>
+                            <th style="text-align: center">SEXTA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center"><b>7h às 8:50h</b></td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Segunda.Disciplina_1Horario != null ? item.Periodo_7_8.Segunda.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Terca.Disciplina_1Horario != null ? item.Periodo_7_8.Terca.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Quarta.Disciplina_1Horario != null ? item.Periodo_7_8.Quarta.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Quinta.Disciplina_1Horario != null ? item.Periodo_7_8.Quinta.Disciplina_1Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Sexta.Disciplina_1Horario != null ? item.Periodo_7_8.Sexta.Disciplina_1Horario.Nome : "---")  </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><b>9h às 10:50h</b></td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Segunda.Disciplina_2Horario != null ? item.Periodo_7_8.Segunda.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Terca.Disciplina_2Horario != null ? item.Periodo_7_8.Terca.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Quarta.Disciplina_2Horario != null ? item.Periodo_7_8.Quarta.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Quinta.Disciplina_2Horario != null ? item.Periodo_7_8.Quinta.Disciplina_2Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Sexta.Disciplina_2Horario != null ? item.Periodo_7_8.Sexta.Disciplina_2Horario.Nome : "---")  </td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center"><b>11h às 12:50</b></td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Segunda.Disciplina_3Horario != null ? item.Periodo_7_8.Segunda.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Terca.Disciplina_3Horario != null ? item.Periodo_7_8.Terca.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Quarta.Disciplina_3Horario != null ? item.Periodo_7_8.Quarta.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Quinta.Disciplina_3Horario != null ? item.Periodo_7_8.Quinta.Disciplina_3Horario.Nome : "---")  </td>
+                            <td style="text-align: center">@(item.Periodo_7_8.Sexta.Disciplina_3Horario != null ? item.Periodo_7_8.Sexta.Disciplina_3Horario.Nome : "---")  </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+</div>
+
+

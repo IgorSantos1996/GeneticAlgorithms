@@ -6,6 +6,7 @@
         public Periodo Periodo_3_4 { get; set; }
         public Periodo Periodo_5_6 { get; set; }
         public Periodo Periodo_7_8 { get; set; }
+        public double Aptidao { get; set; }
 
         public Individuo()
         {
@@ -13,6 +14,7 @@
             Periodo_3_4 = new Periodo();
             Periodo_5_6 = new Periodo();
             Periodo_7_8 = new Periodo();
+            Aptidao = 100;
         }
     }
 }
