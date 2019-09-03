@@ -21,7 +21,7 @@ namespace Persistencia
         {
             var arrayIndividuo = InicializarPopulação(ano);
             // array de individuos avaliados
-            arrayIndividuo = FuncaoFitness(arrayIndividuo);
+            arrayIndividuo = FuncaoFitness(arrayIndividuo, ano);
             // escolher mais aptos para cross-over
 
             // cross-over e/ou mutação
@@ -143,137 +143,21 @@ namespace Persistencia
             return individuo;
         }
         // avaliar os individuos
-        public List<Individuo> FuncaoFitness(List<Individuo> individuos)
+        public List<Individuo> FuncaoFitness(List<Individuo> individuos, string ano)
         {
-            List<Individuo> arrayIndividuos = new List<Individuo> ();
+            List<Individuo> arrayIndividuos = new List<Individuo>();
 
-            foreach(var item in individuos)
+            foreach (var item in individuos)
             {
-                var individuo = Restricao1(item);
-                // r2
-                // r3
+                var individuo = item;
+                individuo = Restricao1(individuo);
+                individuo = Restricao2(individuo, ano);
+                individuo = Restricao3(individuo);
 
                 arrayIndividuos.Add(individuo);
             }
-
-            // retricao 1
-            /* Disciplina de 6 créditos com todas as aulas no mesmo dia */
-
-            // retricao 2
-            /* Disciplina de André na Sexta, pegar restricao de professores no banco */
-
-            // retricao 3
-            /* Disciplina de 60h ou 4 creditos com horario quebrado no mesmo dia */
-
             return arrayIndividuos;
         }
-
-        /*Restricao de Dósea - aulas em dias seguidos*/
-        private Individuo Restricao2 (Individuo individuo)
-        {
-            int penalizacao = 5;
-            var disciplinasDosea = GetDisciplinasDosea("Marcos Dosea");
-
-            //se a lista de disciplinas de Dosea conter a disciplina do referido horario
-            // verificar se ela tbm esta no dia seguinte e penalizar
-            #region 
-            Boolean contemNoPrimeiroDia1_2Periodo = ((disciplinasDosea.Contains(individuo.Periodo_1_2.Segunda.Disciplina_1Horario))
-                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Segunda.Disciplina_2Horario))
-                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Segunda.Disciplina_3Horario)));
-
-            Boolean contemNoSegundoDia1_2Periodo = ((disciplinasDosea.Contains(individuo.Periodo_1_2.Terca.Disciplina_1Horario))
-                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Terca.Disciplina_2Horario))
-                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Quarta.Disciplina_3Horario)));
-
-            Boolean contemNoTerceiroDia1_2Periodo = ((disciplinasDosea.Contains(individuo.Periodo_1_2.Quarta.Disciplina_1Horario))
-                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Quarta.Disciplina_2Horario))
-                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Quinta.Disciplina_3Horario)));
-
-            Boolean contemNoQuartoDia1_2Periodo = ((disciplinasDosea.Contains(individuo.Periodo_1_2.Quinta.Disciplina_1Horario))
-                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Quinta.Disciplina_2Horario))
-                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Sexta.Disciplina_3Horario)));
-
-            Boolean contemNoQuintaDia1_2Periodo = ((disciplinasDosea.Contains(individuo.Periodo_1_2.Sexta.Disciplina_1Horario))
-                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Sexta.Disciplina_2Horario))
-                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Sexta.Disciplina_3Horario)));
-            if (contemNoPrimeiroDia1_2Periodo && contemNoSegundoDia1_2Periodo || contemNoSegundoDia1_2Periodo && contemNoTerceiroDia1_2Periodo
-               || contemNoTerceiroDia1_2Periodo && contemNoQuartoDia1_2Periodo || contemNoQuartoDia1_2Periodo && contemNoQuintaDia1_2Periodo)
-            {
-                individuo.Aptidao -= penalizacao;
-            }
-            #endregion
-            #region
-            Boolean contemNoPrimeiroDia3_4Periodo = ((disciplinasDosea.Contains(individuo.Periodo_3_4.Segunda.Disciplina_1Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Segunda.Disciplina_2Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Segunda.Disciplina_3Horario)));
-            Boolean contemNoSegundoDia3_4Periodo = ((disciplinasDosea.Contains(individuo.Periodo_3_4.Terca.Disciplina_1Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Terca.Disciplina_2Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Terca.Disciplina_3Horario)));
-            Boolean contemNoTerceiroDia3_4Periodo = ((disciplinasDosea.Contains(individuo.Periodo_3_4.Quarta.Disciplina_1Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Quarta.Disciplina_2Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Quarta.Disciplina_3Horario)));
-            Boolean contemNoQuartoDia3_4Periodo = ((disciplinasDosea.Contains(individuo.Periodo_3_4.Quinta.Disciplina_1Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Quinta.Disciplina_2Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Quinta.Disciplina_3Horario)));
-            Boolean contemNoQuintoDia3_4Periodo = ((disciplinasDosea.Contains(individuo.Periodo_3_4.Sexta.Disciplina_1Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Sexta.Disciplina_2Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Sexta.Disciplina_3Horario)));
-            if (contemNoPrimeiroDia3_4Periodo && contemNoSegundoDia3_4Periodo || contemNoSegundoDia3_4Periodo && contemNoTerceiroDia3_4Periodo
-               || contemNoTerceiroDia3_4Periodo && contemNoQuartoDia3_4Periodo || contemNoQuartoDia3_4Periodo && contemNoQuintoDia3_4Periodo)
-            {
-                individuo.Aptidao -= penalizacao;
-            }
-            #endregion
-            #region
-            Boolean contemNoPrimeiroDia5_6Periodo = ((disciplinasDosea.Contains(individuo.Periodo_5_6.Segunda.Disciplina_1Horario))
-               || (disciplinasDosea.Contains(individuo.Periodo_5_6.Segunda.Disciplina_2Horario))
-               || (disciplinasDosea.Contains(individuo.Periodo_5_6.Segunda.Disciplina_3Horario)));
-            Boolean contemNoSegundoDia5_6Periodo = ((disciplinasDosea.Contains(individuo.Periodo_5_6.Terca.Disciplina_1Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Terca.Disciplina_2Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Terca.Disciplina_3Horario)));
-            Boolean contemNoTerceiroDia5_6Periodo = ((disciplinasDosea.Contains(individuo.Periodo_5_6.Quarta.Disciplina_1Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Quarta.Disciplina_2Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Quarta.Disciplina_3Horario)));
-            Boolean contemNoQuartoDia5_6Periodo = ((disciplinasDosea.Contains(individuo.Periodo_5_6.Quinta.Disciplina_1Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Quinta.Disciplina_2Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Quinta.Disciplina_3Horario)));
-            Boolean contemNoQuintoDia5_6Periodo = ((disciplinasDosea.Contains(individuo.Periodo_5_6.Sexta.Disciplina_1Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Sexta.Disciplina_2Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Sexta.Disciplina_3Horario)));
-            if (contemNoPrimeiroDia5_6Periodo && contemNoSegundoDia5_6Periodo || contemNoSegundoDia5_6Periodo && contemNoTerceiroDia5_6Periodo
-               || contemNoTerceiroDia5_6Periodo && contemNoQuartoDia5_6Periodo || contemNoQuartoDia5_6Periodo && contemNoQuintoDia5_6Periodo)
-            {
-                individuo.Aptidao -= penalizacao;
-            }
-
-            #endregion
-            #region
-            Boolean contemNoPrimeiroDia7_8Periodo = ((disciplinasDosea.Contains(individuo.Periodo_7_8.Segunda.Disciplina_1Horario))
-               || (disciplinasDosea.Contains(individuo.Periodo_7_8.Segunda.Disciplina_2Horario))
-               || (disciplinasDosea.Contains(individuo.Periodo_7_8.Segunda.Disciplina_3Horario)));
-            Boolean contemNoSegundoDia7_8Periodo = ((disciplinasDosea.Contains(individuo.Periodo_7_8.Terca.Disciplina_1Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Terca.Disciplina_2Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Terca.Disciplina_3Horario)));
-            Boolean contemNoTerceiroDia7_8Periodo = ((disciplinasDosea.Contains(individuo.Periodo_7_8.Quarta.Disciplina_1Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Quarta.Disciplina_2Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Quarta.Disciplina_3Horario)));
-            Boolean contemNoQuartoDia7_8Periodo = ((disciplinasDosea.Contains(individuo.Periodo_7_8.Quinta.Disciplina_1Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Quinta.Disciplina_2Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Quinta.Disciplina_3Horario)));
-            Boolean contemNoQuintoDia7_8Periodo = ((disciplinasDosea.Contains(individuo.Periodo_7_8.Sexta.Disciplina_1Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Sexta.Disciplina_2Horario))
-                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Sexta.Disciplina_3Horario)));
-            if (contemNoPrimeiroDia7_8Periodo && contemNoSegundoDia7_8Periodo || contemNoSegundoDia7_8Periodo && contemNoTerceiroDia7_8Periodo
-               || contemNoTerceiroDia7_8Periodo && contemNoQuartoDia7_8Periodo || contemNoQuartoDia7_8Periodo && contemNoQuintoDia7_8Periodo)
-            {
-                individuo.Aptidao -= penalizacao;
-            }
-            #endregion
-            return individuo;
-        }
-
-        /*Restricao de Andre Vinicius - Não pode aula na sexta*/
-
         /* Restricao Disciplina de 6 créditos com todas as aulas no mesmo dia */
         private Individuo Restricao1(Individuo individuo)
         {
@@ -284,7 +168,7 @@ namespace Persistencia
             // 1 ou 2 periodo
             if (individuo.Periodo_1_2.Segunda.Disciplina_1Horario != null) // p1 - 90h ou 6 creditos
             {
-                if(individuo.Periodo_1_2.Segunda.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Segunda.Disciplina_2Horario)
+                if (individuo.Periodo_1_2.Segunda.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Segunda.Disciplina_2Horario)
                     && individuo.Periodo_1_2.Segunda.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Segunda.Disciplina_3Horario)
                     && disciplinas6Creditos.Contains(individuo.Periodo_1_2.Segunda.Disciplina_1Horario))
                 {
@@ -293,7 +177,7 @@ namespace Persistencia
             }
             if (individuo.Periodo_1_2.Terca.Disciplina_1Horario != null)
             {
-                if(individuo.Periodo_1_2.Terca.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Terca.Disciplina_2Horario)
+                if (individuo.Periodo_1_2.Terca.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Terca.Disciplina_2Horario)
                     && individuo.Periodo_1_2.Terca.Disciplina_1Horario.Equals(individuo.Periodo_1_2.Terca.Disciplina_3Horario)
                     && disciplinas6Creditos.Contains(individuo.Periodo_1_2.Terca.Disciplina_1Horario))
                 {
@@ -470,14 +354,514 @@ namespace Persistencia
             }
             return individuo;
         }
-        private List<Disciplina> GetDisciplinasDosea(string nome)
-            => _contexto.Disciplinas.Where(n => n.Professor.Nome.Equals(nome)).ToList();
-        private List<Disciplina> GetDisciplinasAndreVinicius(string nome)
-            => _contexto.Disciplinas.Where(n => n.Professor.Nome.Equals(nome)).ToList();
+        /*Restrição para disponibilidade dos professores, ex: André Vinicius, não pode ir a UFS na sexta*/
+        private Individuo Restricao2(Individuo individuo, string ano)
+        {
+            var disponibilidades = GetDisponibilidadeProfessores(ano);
+            int penalizacao = 5;
 
-        
-            
-        
+            if (disponibilidades.Count > 0)
+            {
+                foreach (var item in disponibilidades)
+                {
+                    if (!item.Segunda)
+                    {
+                        var professor = item.Professor.Nome;
+                        // 1 e 2 periodo
+                        if (individuo.Periodo_1_2.Segunda.Disciplina_1Horario != null
+                            && individuo.Periodo_1_2.Segunda.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_1_2.Segunda.Disciplina_2Horario != null
+                            && individuo.Periodo_1_2.Segunda.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_1_2.Segunda.Disciplina_3Horario != null
+                            && individuo.Periodo_1_2.Segunda.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 3 e 4 periodo
+                        if (individuo.Periodo_3_4.Segunda.Disciplina_1Horario != null
+                            && individuo.Periodo_3_4.Segunda.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_3_4.Segunda.Disciplina_2Horario != null
+                            && individuo.Periodo_3_4.Segunda.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_3_4.Segunda.Disciplina_3Horario != null
+                            && individuo.Periodo_3_4.Segunda.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 5 e 6 periodo
+                        if (individuo.Periodo_5_6.Segunda.Disciplina_1Horario != null
+                            && individuo.Periodo_5_6.Segunda.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_5_6.Segunda.Disciplina_2Horario != null
+                            && individuo.Periodo_5_6.Segunda.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_5_6.Segunda.Disciplina_3Horario != null
+                            && individuo.Periodo_5_6.Segunda.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 7 e 8 periodo
+                        if (individuo.Periodo_7_8.Segunda.Disciplina_1Horario != null
+                            && individuo.Periodo_7_8.Segunda.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_7_8.Segunda.Disciplina_2Horario != null
+                            && individuo.Periodo_7_8.Segunda.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_7_8.Segunda.Disciplina_3Horario != null
+                            && individuo.Periodo_7_8.Segunda.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                    }
+                    if (!item.Terca)
+                    {
+                        var professor = item.Professor.Nome;
+                        // 1 e 2 periodo
+                        if (individuo.Periodo_1_2.Terca.Disciplina_1Horario != null
+                            && individuo.Periodo_1_2.Terca.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_1_2.Terca.Disciplina_2Horario != null
+                            && individuo.Periodo_1_2.Terca.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_1_2.Terca.Disciplina_3Horario != null
+                            && individuo.Periodo_1_2.Terca.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 3 e 4 periodo
+                        if (individuo.Periodo_3_4.Terca.Disciplina_1Horario != null
+                            && individuo.Periodo_3_4.Terca.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_3_4.Terca.Disciplina_2Horario != null
+                            && individuo.Periodo_3_4.Terca.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_3_4.Terca.Disciplina_3Horario != null
+                            && individuo.Periodo_3_4.Terca.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 5 e 6 periodo
+                        if (individuo.Periodo_5_6.Terca.Disciplina_1Horario != null
+                            && individuo.Periodo_5_6.Terca.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_5_6.Terca.Disciplina_2Horario != null
+                            && individuo.Periodo_5_6.Terca.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_5_6.Terca.Disciplina_3Horario != null
+                            && individuo.Periodo_5_6.Terca.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 7 e 8 periodo
+                        if (individuo.Periodo_7_8.Terca.Disciplina_1Horario != null
+                            && individuo.Periodo_7_8.Terca.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_7_8.Terca.Disciplina_2Horario != null
+                            && individuo.Periodo_7_8.Terca.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_7_8.Terca.Disciplina_3Horario != null
+                            && individuo.Periodo_7_8.Terca.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                    }
+                    if (!item.Quarta)
+                    {
+                        var professor = item.Professor.Nome;
+                        // 1 e 2 periodo
+                        if (individuo.Periodo_1_2.Quarta.Disciplina_1Horario != null
+                            && individuo.Periodo_1_2.Quarta.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_1_2.Quarta.Disciplina_2Horario != null
+                            && individuo.Periodo_1_2.Quarta.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_1_2.Quarta.Disciplina_3Horario != null
+                            && individuo.Periodo_1_2.Quarta.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 3 e 4 periodo
+                        if (individuo.Periodo_3_4.Quarta.Disciplina_1Horario != null
+                            && individuo.Periodo_3_4.Quarta.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_3_4.Quarta.Disciplina_2Horario != null
+                            && individuo.Periodo_3_4.Quarta.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_3_4.Quarta.Disciplina_3Horario != null
+                            && individuo.Periodo_3_4.Quarta.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 5 e 6 periodo
+                        if (individuo.Periodo_5_6.Quarta.Disciplina_1Horario != null
+                            && individuo.Periodo_5_6.Quarta.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_5_6.Quarta.Disciplina_2Horario != null
+                            && individuo.Periodo_5_6.Quarta.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_5_6.Quarta.Disciplina_3Horario != null
+                            && individuo.Periodo_5_6.Quarta.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 7 e 8 periodo
+                        if (individuo.Periodo_7_8.Quarta.Disciplina_1Horario != null
+                            && individuo.Periodo_7_8.Quarta.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_7_8.Quarta.Disciplina_2Horario != null
+                            && individuo.Periodo_7_8.Quarta.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_7_8.Quarta.Disciplina_3Horario != null
+                            && individuo.Periodo_7_8.Quarta.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                    }
+                    if (!item.Quinta)
+                    {
+                        var professor = item.Professor.Nome;
+                        // 1 e 2 periodo
+                        if (individuo.Periodo_1_2.Quinta.Disciplina_1Horario != null
+                            && individuo.Periodo_1_2.Quinta.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_1_2.Quinta.Disciplina_2Horario != null
+                            && individuo.Periodo_1_2.Quinta.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_1_2.Quinta.Disciplina_3Horario != null
+                            && individuo.Periodo_1_2.Quinta.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 3 e 4 periodo
+                        if (individuo.Periodo_3_4.Quinta.Disciplina_1Horario != null
+                            && individuo.Periodo_3_4.Quinta.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_3_4.Quinta.Disciplina_2Horario != null
+                            && individuo.Periodo_3_4.Quinta.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_3_4.Quinta.Disciplina_3Horario != null
+                            && individuo.Periodo_3_4.Quinta.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 5 e 6 periodo
+                        if (individuo.Periodo_5_6.Quinta.Disciplina_1Horario != null
+                            && individuo.Periodo_5_6.Quinta.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_5_6.Quinta.Disciplina_2Horario != null
+                            && individuo.Periodo_5_6.Quinta.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_5_6.Quinta.Disciplina_3Horario != null
+                            && individuo.Periodo_5_6.Quinta.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 7 e 8 periodo
+                        if (individuo.Periodo_7_8.Quinta.Disciplina_1Horario != null
+                            && individuo.Periodo_7_8.Quinta.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_7_8.Quinta.Disciplina_2Horario != null
+                            && individuo.Periodo_7_8.Quinta.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_7_8.Quinta.Disciplina_3Horario != null
+                            && individuo.Periodo_7_8.Quinta.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                    }
+                    if (!item.Sexta)
+                    {
+                        var professor = item.Professor.Nome;
+                        // 1 e 2 periodo
+                        if (individuo.Periodo_1_2.Sexta.Disciplina_1Horario != null
+                            && individuo.Periodo_1_2.Sexta.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_1_2.Sexta.Disciplina_2Horario != null
+                            && individuo.Periodo_1_2.Sexta.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_1_2.Sexta.Disciplina_3Horario != null
+                            && individuo.Periodo_1_2.Sexta.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 3 e 4 periodo
+                        if (individuo.Periodo_3_4.Sexta.Disciplina_1Horario != null
+                            && individuo.Periodo_3_4.Sexta.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_3_4.Sexta.Disciplina_2Horario != null
+                            && individuo.Periodo_3_4.Sexta.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_3_4.Sexta.Disciplina_3Horario != null
+                            && individuo.Periodo_3_4.Sexta.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 5 e 6 periodo
+                        if (individuo.Periodo_5_6.Sexta.Disciplina_1Horario != null
+                            && individuo.Periodo_5_6.Sexta.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_5_6.Sexta.Disciplina_2Horario != null
+                            && individuo.Periodo_5_6.Sexta.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_5_6.Sexta.Disciplina_3Horario != null
+                            && individuo.Periodo_5_6.Sexta.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+
+                        // 7 e 8 periodo
+                        if (individuo.Periodo_7_8.Sexta.Disciplina_1Horario != null
+                            && individuo.Periodo_7_8.Sexta.Disciplina_1Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_7_8.Sexta.Disciplina_2Horario != null
+                            && individuo.Periodo_7_8.Sexta.Disciplina_2Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                        if (individuo.Periodo_7_8.Sexta.Disciplina_3Horario != null
+                            && individuo.Periodo_7_8.Sexta.Disciplina_3Horario.Professor.Nome.Equals(professor))
+                            individuo.Aptidao -= penalizacao;
+                    }
+                }
+            }
+            return individuo;
+        }
+        /* Disciplina de 60h ou 4 creditos com horario quebrado no mesmo dia */
+        private Individuo Restricao3(Individuo individuo)
+        {
+            var disciplinas4cr = GetDisciplinasNCreditos(4);
+            int penalizacao = 5;
+            // 1 ou 2 periodo
+            if(individuo.Periodo_1_2.Segunda.Disciplina_1Horario != null
+                && individuo.Periodo_1_2.Segunda.Disciplina_3Horario != null
+                && individuo.Periodo_1_2.Segunda.Disciplina_1Horario.Nome.Equals(individuo.Periodo_1_2.Segunda.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_1_2.Segunda.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_1_2.Terca.Disciplina_1Horario != null
+                && individuo.Periodo_1_2.Terca.Disciplina_3Horario != null
+                && individuo.Periodo_1_2.Terca.Disciplina_1Horario.Nome.Equals(individuo.Periodo_1_2.Terca.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_1_2.Terca.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_1_2.Quarta.Disciplina_1Horario != null
+                && individuo.Periodo_1_2.Quarta.Disciplina_3Horario != null
+                && individuo.Periodo_1_2.Quarta.Disciplina_1Horario.Nome.Equals(individuo.Periodo_1_2.Quarta.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_1_2.Quarta.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_1_2.Quinta.Disciplina_1Horario != null
+                && individuo.Periodo_1_2.Quinta.Disciplina_3Horario != null
+                && individuo.Periodo_1_2.Quinta.Disciplina_1Horario.Nome.Equals(individuo.Periodo_1_2.Quinta.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_1_2.Quinta.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_1_2.Sexta.Disciplina_1Horario != null
+                && individuo.Periodo_1_2.Sexta.Disciplina_3Horario != null
+                && individuo.Periodo_1_2.Sexta.Disciplina_1Horario.Nome.Equals(individuo.Periodo_1_2.Sexta.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_1_2.Sexta.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+
+            // 3 ou 4 periodo
+            if (individuo.Periodo_3_4.Segunda.Disciplina_1Horario != null
+                && individuo.Periodo_3_4.Segunda.Disciplina_3Horario != null
+                && individuo.Periodo_3_4.Segunda.Disciplina_1Horario.Nome.Equals(individuo.Periodo_3_4.Segunda.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_3_4.Segunda.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_3_4.Terca.Disciplina_1Horario != null
+                && individuo.Periodo_3_4.Terca.Disciplina_3Horario != null
+                && individuo.Periodo_3_4.Terca.Disciplina_1Horario.Nome.Equals(individuo.Periodo_3_4.Terca.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_3_4.Terca.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_3_4.Quarta.Disciplina_1Horario != null
+                && individuo.Periodo_3_4.Quarta.Disciplina_3Horario != null
+                && individuo.Periodo_3_4.Quarta.Disciplina_1Horario.Nome.Equals(individuo.Periodo_3_4.Quarta.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_3_4.Quarta.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_3_4.Quinta.Disciplina_1Horario != null
+                && individuo.Periodo_3_4.Quinta.Disciplina_3Horario != null
+                && individuo.Periodo_3_4.Quinta.Disciplina_1Horario.Nome.Equals(individuo.Periodo_3_4.Quinta.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_3_4.Quinta.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_3_4.Sexta.Disciplina_1Horario != null
+                && individuo.Periodo_3_4.Sexta.Disciplina_3Horario != null
+                && individuo.Periodo_3_4.Sexta.Disciplina_1Horario.Nome.Equals(individuo.Periodo_3_4.Sexta.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_3_4.Sexta.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+
+            // 5 ou 6 periodo
+            if (individuo.Periodo_5_6.Segunda.Disciplina_1Horario != null
+                && individuo.Periodo_5_6.Segunda.Disciplina_3Horario != null
+                && individuo.Periodo_5_6.Segunda.Disciplina_1Horario.Nome.Equals(individuo.Periodo_5_6.Segunda.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_5_6.Segunda.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_5_6.Terca.Disciplina_1Horario != null
+                && individuo.Periodo_5_6.Terca.Disciplina_3Horario != null
+                && individuo.Periodo_5_6.Terca.Disciplina_1Horario.Nome.Equals(individuo.Periodo_5_6.Terca.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_5_6.Terca.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_5_6.Quarta.Disciplina_1Horario != null
+                && individuo.Periodo_5_6.Quarta.Disciplina_3Horario != null
+                && individuo.Periodo_5_6.Quarta.Disciplina_1Horario.Nome.Equals(individuo.Periodo_5_6.Quarta.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_5_6.Quarta.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_5_6.Quinta.Disciplina_1Horario != null
+                && individuo.Periodo_5_6.Quinta.Disciplina_3Horario != null
+                && individuo.Periodo_5_6.Quinta.Disciplina_1Horario.Nome.Equals(individuo.Periodo_5_6.Quinta.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_5_6.Quinta.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_5_6.Sexta.Disciplina_1Horario != null
+                && individuo.Periodo_5_6.Sexta.Disciplina_3Horario != null
+                && individuo.Periodo_5_6.Sexta.Disciplina_1Horario.Nome.Equals(individuo.Periodo_5_6.Sexta.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_5_6.Sexta.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+
+            // 7 ou 8 periodo
+            if (individuo.Periodo_7_8.Segunda.Disciplina_1Horario != null
+                && individuo.Periodo_7_8.Segunda.Disciplina_3Horario != null
+                && individuo.Periodo_7_8.Segunda.Disciplina_1Horario.Nome.Equals(individuo.Periodo_7_8.Segunda.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_7_8.Segunda.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_7_8.Terca.Disciplina_1Horario != null
+                && individuo.Periodo_7_8.Terca.Disciplina_3Horario != null
+                && individuo.Periodo_7_8.Terca.Disciplina_1Horario.Nome.Equals(individuo.Periodo_7_8.Terca.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_7_8.Terca.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_7_8.Quarta.Disciplina_1Horario != null
+                && individuo.Periodo_7_8.Quarta.Disciplina_3Horario != null
+                && individuo.Periodo_7_8.Quarta.Disciplina_1Horario.Nome.Equals(individuo.Periodo_7_8.Quarta.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_7_8.Quarta.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_7_8.Quinta.Disciplina_1Horario != null
+                && individuo.Periodo_7_8.Quinta.Disciplina_3Horario != null
+                && individuo.Periodo_7_8.Quinta.Disciplina_1Horario.Nome.Equals(individuo.Periodo_7_8.Quinta.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_7_8.Quinta.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            if (individuo.Periodo_7_8.Sexta.Disciplina_1Horario != null
+                && individuo.Periodo_7_8.Sexta.Disciplina_3Horario != null
+                && individuo.Periodo_7_8.Sexta.Disciplina_1Horario.Nome.Equals(individuo.Periodo_7_8.Sexta.Disciplina_3Horario.Nome)
+                && disciplinas4cr.Contains(individuo.Periodo_7_8.Sexta.Disciplina_1Horario))
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            return individuo;
+        }
+        /*Restricao de Dósea - aulas em dias seguidos*/
+        private Individuo RestricaoDosea(Individuo individuo)
+        {
+            int penalizacao = 5;
+            var disciplinasDosea = GetDisciplinasProfessor("Marcos Dósea");
+
+            //se a lista de disciplinas de Dosea conter a disciplina do referido horario
+            // verificar se ela tbm esta no dia seguinte e penalizar
+            #region 
+            Boolean contemNoPrimeiroDia1_2Periodo = ((disciplinasDosea.Contains(individuo.Periodo_1_2.Segunda.Disciplina_1Horario))
+                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Segunda.Disciplina_2Horario))
+                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Segunda.Disciplina_3Horario)));
+
+            Boolean contemNoSegundoDia1_2Periodo = ((disciplinasDosea.Contains(individuo.Periodo_1_2.Terca.Disciplina_1Horario))
+                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Terca.Disciplina_2Horario))
+                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Quarta.Disciplina_3Horario)));
+
+            Boolean contemNoTerceiroDia1_2Periodo = ((disciplinasDosea.Contains(individuo.Periodo_1_2.Quarta.Disciplina_1Horario))
+                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Quarta.Disciplina_2Horario))
+                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Quinta.Disciplina_3Horario)));
+
+            Boolean contemNoQuartoDia1_2Periodo = ((disciplinasDosea.Contains(individuo.Periodo_1_2.Quinta.Disciplina_1Horario))
+                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Quinta.Disciplina_2Horario))
+                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Sexta.Disciplina_3Horario)));
+
+            Boolean contemNoQuintaDia1_2Periodo = ((disciplinasDosea.Contains(individuo.Periodo_1_2.Sexta.Disciplina_1Horario))
+                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Sexta.Disciplina_2Horario))
+                 || (disciplinasDosea.Contains(individuo.Periodo_1_2.Sexta.Disciplina_3Horario)));
+            if (contemNoPrimeiroDia1_2Periodo && contemNoSegundoDia1_2Periodo || contemNoSegundoDia1_2Periodo && contemNoTerceiroDia1_2Periodo
+               || contemNoTerceiroDia1_2Periodo && contemNoQuartoDia1_2Periodo || contemNoQuartoDia1_2Periodo && contemNoQuintaDia1_2Periodo)
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            #endregion
+            #region
+            Boolean contemNoPrimeiroDia3_4Periodo = ((disciplinasDosea.Contains(individuo.Periodo_3_4.Segunda.Disciplina_1Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Segunda.Disciplina_2Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Segunda.Disciplina_3Horario)));
+            Boolean contemNoSegundoDia3_4Periodo = ((disciplinasDosea.Contains(individuo.Periodo_3_4.Terca.Disciplina_1Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Terca.Disciplina_2Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Terca.Disciplina_3Horario)));
+            Boolean contemNoTerceiroDia3_4Periodo = ((disciplinasDosea.Contains(individuo.Periodo_3_4.Quarta.Disciplina_1Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Quarta.Disciplina_2Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Quarta.Disciplina_3Horario)));
+            Boolean contemNoQuartoDia3_4Periodo = ((disciplinasDosea.Contains(individuo.Periodo_3_4.Quinta.Disciplina_1Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Quinta.Disciplina_2Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Quinta.Disciplina_3Horario)));
+            Boolean contemNoQuintoDia3_4Periodo = ((disciplinasDosea.Contains(individuo.Periodo_3_4.Sexta.Disciplina_1Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Sexta.Disciplina_2Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_3_4.Sexta.Disciplina_3Horario)));
+            if (contemNoPrimeiroDia3_4Periodo && contemNoSegundoDia3_4Periodo || contemNoSegundoDia3_4Periodo && contemNoTerceiroDia3_4Periodo
+               || contemNoTerceiroDia3_4Periodo && contemNoQuartoDia3_4Periodo || contemNoQuartoDia3_4Periodo && contemNoQuintoDia3_4Periodo)
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            #endregion
+            #region
+            Boolean contemNoPrimeiroDia5_6Periodo = ((disciplinasDosea.Contains(individuo.Periodo_5_6.Segunda.Disciplina_1Horario))
+               || (disciplinasDosea.Contains(individuo.Periodo_5_6.Segunda.Disciplina_2Horario))
+               || (disciplinasDosea.Contains(individuo.Periodo_5_6.Segunda.Disciplina_3Horario)));
+            Boolean contemNoSegundoDia5_6Periodo = ((disciplinasDosea.Contains(individuo.Periodo_5_6.Terca.Disciplina_1Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Terca.Disciplina_2Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Terca.Disciplina_3Horario)));
+            Boolean contemNoTerceiroDia5_6Periodo = ((disciplinasDosea.Contains(individuo.Periodo_5_6.Quarta.Disciplina_1Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Quarta.Disciplina_2Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Quarta.Disciplina_3Horario)));
+            Boolean contemNoQuartoDia5_6Periodo = ((disciplinasDosea.Contains(individuo.Periodo_5_6.Quinta.Disciplina_1Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Quinta.Disciplina_2Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Quinta.Disciplina_3Horario)));
+            Boolean contemNoQuintoDia5_6Periodo = ((disciplinasDosea.Contains(individuo.Periodo_5_6.Sexta.Disciplina_1Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Sexta.Disciplina_2Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_5_6.Sexta.Disciplina_3Horario)));
+            if (contemNoPrimeiroDia5_6Periodo && contemNoSegundoDia5_6Periodo || contemNoSegundoDia5_6Periodo && contemNoTerceiroDia5_6Periodo
+               || contemNoTerceiroDia5_6Periodo && contemNoQuartoDia5_6Periodo || contemNoQuartoDia5_6Periodo && contemNoQuintoDia5_6Periodo)
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+
+            #endregion
+            #region
+            Boolean contemNoPrimeiroDia7_8Periodo = ((disciplinasDosea.Contains(individuo.Periodo_7_8.Segunda.Disciplina_1Horario))
+               || (disciplinasDosea.Contains(individuo.Periodo_7_8.Segunda.Disciplina_2Horario))
+               || (disciplinasDosea.Contains(individuo.Periodo_7_8.Segunda.Disciplina_3Horario)));
+            Boolean contemNoSegundoDia7_8Periodo = ((disciplinasDosea.Contains(individuo.Periodo_7_8.Terca.Disciplina_1Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Terca.Disciplina_2Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Terca.Disciplina_3Horario)));
+            Boolean contemNoTerceiroDia7_8Periodo = ((disciplinasDosea.Contains(individuo.Periodo_7_8.Quarta.Disciplina_1Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Quarta.Disciplina_2Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Quarta.Disciplina_3Horario)));
+            Boolean contemNoQuartoDia7_8Periodo = ((disciplinasDosea.Contains(individuo.Periodo_7_8.Quinta.Disciplina_1Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Quinta.Disciplina_2Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Quinta.Disciplina_3Horario)));
+            Boolean contemNoQuintoDia7_8Periodo = ((disciplinasDosea.Contains(individuo.Periodo_7_8.Sexta.Disciplina_1Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Sexta.Disciplina_2Horario))
+                || (disciplinasDosea.Contains(individuo.Periodo_7_8.Sexta.Disciplina_3Horario)));
+            if (contemNoPrimeiroDia7_8Periodo && contemNoSegundoDia7_8Periodo || contemNoSegundoDia7_8Periodo && contemNoTerceiroDia7_8Periodo
+               || contemNoTerceiroDia7_8Periodo && contemNoQuartoDia7_8Periodo || contemNoQuartoDia7_8Periodo && contemNoQuintoDia7_8Periodo)
+            {
+                individuo.Aptidao -= penalizacao;
+            }
+            #endregion
+            return individuo;
+        }
+        private List<Disciplina> GetDisciplinasProfessor(string nome)
+            => _contexto.Disciplinas.Where(n => n.Professor.Nome.Equals(nome)).ToList();
         private List<Disciplina> GetDisciplinasNCreditos(int nHoras)
             => _contexto
                 .Disciplinas
@@ -853,10 +1237,19 @@ namespace Persistencia
             }
             return sorts;
         }
+        // Restrição para horarios de outros departamento em que as disciplinas já são fixas
         private List<RestricaoHorario> GetRestricoesHorarios(string ano)
             => _contexto
             .RestricaoHorarios
             .Where(rh => rh.Ano.Periodo.Equals(ano))
+            .ToList();
+        // Metodo com os dias que os professores se fazem disponiveis 
+        private List<RestricaoProfessor> GetDisponibilidadeProfessores(string ano)
+            => _contexto
+            .RestricoesProfessores
+            .Include(rp => rp.Ano)
+            .Include(rp => rp.Professor)
+            .Where(rp => rp.Ano.Periodo.Equals(ano))
             .ToList();
     }
 }

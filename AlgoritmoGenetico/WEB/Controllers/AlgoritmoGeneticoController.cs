@@ -24,14 +24,14 @@ namespace WEB.Controllers
             List<Individuo> populacao = null;
             if (individuos.Count != 0)
             {
-                populacao = persistenciaAlgoritmoGenetico.FuncaoFitness(individuos);
+                populacao = persistenciaAlgoritmoGenetico.FuncaoFitness(individuos, ano);
             }
             else
             {
                 populacao = persistenciaAlgoritmoGenetico.AlgoritmoGenetico(ano);
                 if (acao.Equals("avaliarpopulacao"))
                 {
-                    populacao = persistenciaAlgoritmoGenetico.FuncaoFitness(populacao);
+                    populacao = persistenciaAlgoritmoGenetico.FuncaoFitness(populacao, ano);
                 }
             }
 
