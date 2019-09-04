@@ -9,7 +9,7 @@ namespace Persistencia
     public class PersistenciaAlgoritmoGenetico
     {
         private Random random = new Random();
-        private readonly int qtdIndividuos = 16;
+        private readonly int qtdIndividuos = 4;
         private readonly DbContextAG _contexto;
         private Individuo individuo;
         public PersistenciaAlgoritmoGenetico(DbContextAG contexto)
@@ -45,7 +45,6 @@ namespace Persistencia
             }
             return arrayIndividuo;
         }
-
         private Individuo CriarIndividuo(List<Horario> horarios, string ano)
         {
             // variaveis para auxiliar o sorteador
@@ -153,11 +152,62 @@ namespace Persistencia
                 individuo = Restricao1(individuo);
                 individuo = Restricao2(individuo, ano);
                 individuo = Restricao3(individuo);
+                individuo = RestricaoDosea(individuo);
 
                 arrayIndividuos.Add(individuo);
             }
             return arrayIndividuos;
         }
+        private (Individuo, Individuo) Selecao(List<Individuo> populacao)
+        {
+            var totalAptidaoPopulacao = populacao.Sum(p => p.Aptidao);
+            Random random = new Random();
+
+            Individuo individuo1 = null;
+            Individuo individuo2 = null;
+
+            int cont = 1; // saber qual individuo estou
+
+            while (cont <= 2)
+            {
+                var numeroAleatorio = random.Next(0, totalAptidaoPopulacao);
+                var somaAptidoes = 0;
+                foreach (var item in populacao)
+                {
+                    somaAptidoes += item.Aptidao;
+                    if (somaAptidoes >= numeroAleatorio)
+                    {
+                        if (cont == 1)
+                        {
+                            individuo1 = item;
+                            cont++;
+                        }
+                        if(cont == 2)
+                        {
+                            individuo2 = item;
+                            cont++;
+                        }
+                    }
+                }
+            }
+            return (individuo1, individuo2);
+        }
+        private List<Individuo> GerarNovaPopulacao(List<Individuo> populacao)
+        {
+            // chamar o selecao para populacao
+            // excluir os individuos ja selecionados
+            // pegar os 2 individuos
+            // passar para o crossover
+            return null;
+        }
+        private (Individuo, Individuo) CrossOver(Individuo individuo1, Individuo individuo2)
+        {
+            // cruzamento segunda e terça
+            // cruzamento quarta, quinta e sexta de outro
+            // gerando assim dois individuos
+            return (null, null);
+        }
+
         /* Restricao Disciplina de 6 créditos com todas as aulas no mesmo dia */
         private Individuo Restricao1(Individuo individuo)
         {
@@ -609,7 +659,7 @@ namespace Persistencia
             var disciplinas4cr = GetDisciplinasNCreditos(4);
             int penalizacao = 5;
             // 1 ou 2 periodo
-            if(individuo.Periodo_1_2.Segunda.Disciplina_1Horario != null
+            if (individuo.Periodo_1_2.Segunda.Disciplina_1Horario != null
                 && individuo.Periodo_1_2.Segunda.Disciplina_3Horario != null
                 && individuo.Periodo_1_2.Segunda.Disciplina_1Horario.Nome.Equals(individuo.Periodo_1_2.Segunda.Disciplina_3Horario.Nome)
                 && disciplinas4cr.Contains(individuo.Periodo_1_2.Segunda.Disciplina_1Horario))

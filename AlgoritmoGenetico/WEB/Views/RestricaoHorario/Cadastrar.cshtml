@@ -3,119 +3,77 @@
 @{
     ViewData["Title"] = "Cadastrar";
 }
-
 <h1>Cadastrar</h1>
 
 <h4>RestricaoHorario</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Cadastrar">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SegundaHorario1" /> @Html.DisplayNameFor(model => model.SegundaHorario1)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SegundaHorario2" /> @Html.DisplayNameFor(model => model.SegundaHorario2)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SegundaHorario3" /> @Html.DisplayNameFor(model => model.SegundaHorario3)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="TercaHorario1" /> @Html.DisplayNameFor(model => model.TercaHorario1)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="TercaHorario2" /> @Html.DisplayNameFor(model => model.TercaHorario2)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="TercaHorario3" /> @Html.DisplayNameFor(model => model.TercaHorario3)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="QuartaHorario1" /> @Html.DisplayNameFor(model => model.QuartaHorario1)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="QuartaHorario2" /> @Html.DisplayNameFor(model => model.QuartaHorario2)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="QuartaHorario3" /> @Html.DisplayNameFor(model => model.QuartaHorario3)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="QuintaHorario1" /> @Html.DisplayNameFor(model => model.QuintaHorario1)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="QuintaHorario2" /> @Html.DisplayNameFor(model => model.QuintaHorario2)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="QuintaHorario3" /> @Html.DisplayNameFor(model => model.QuintaHorario3)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SextaHorario1" /> @Html.DisplayNameFor(model => model.SextaHorario1)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SextaHorario2" /> @Html.DisplayNameFor(model => model.SextaHorario2)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="SextaHorario3" /> @Html.DisplayNameFor(model => model.SextaHorario3)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="Periodo" class="control-label"></label>
-                <select asp-for="Periodo" class="form-control">
-                    <option value="1">1º período</option>
-                    <option value="2">2º período</option>
-                    <option value="3">3º período</option>
-                    <option value="4">4º período</option>
-                    <option value="5">5º período</option>
-                    <option value="6">6º período</option>
-                    <option value="7">7º período</option>
-                    <option value="8">8º período</option>
-                </select>
-                <span asp-validation-for="Periodo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ano" class="control-label"></label>
-                <select id="idano" asp-for="IdAno" asp-items="(SelectList)ViewBag.AllAno" class="form-control"></select>
-                <span asp-validation-for="IdAno" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<form asp-action="Cadastrar">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="form-group col-sm-4">
+            <label asp-for="Periodo" class="control-label"></label>
+            <select asp-for="Periodo" class="form-control">
+                <option value="1">1º período</option>
+                <option value="2">2º período</option>
+                <option value="3">3º período</option>
+                <option value="4">4º período</option>
+                <option value="5">5º período</option>
+                <option value="6">6º período</option>
+                <option value="7">7º período</option>
+                <option value="8">8º período</option>
+            </select>
+            <span asp-validation-for="Periodo" class="text-danger"></span>
+        </div>
+        <div class="form-group col-sm-4">
+            <label asp-for="Ano" class="control-label"></label>
+            <select id="idano" asp-for="IdAno" asp-items="(SelectList)ViewBag.AllAno" class="form-control"></select>
+            <span asp-validation-for="IdAno" class="text-danger"></span>
+        </div>
     </div>
-</div>
+    <div class="row">
+        <label class="col-sm-12"> <b>Selecione o horário no respectivo dia que já possui disciplina fixa de outros departamentos</b> </label>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"> Segunda </div>
+        <div class="col-sm-2"> Terça </div>
+        <div class="col-sm-2"> Quarta </div>
+        <div class="col-sm-2"> Quinta </div>
+        <div class="col-sm-2"> Sexta </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><label><input asp-for="SegundaHorario1" /> 7h às 8:50</label></div>
+        <div class="col-sm-2"><label><input asp-for="TercaHorario1" /> 7h às 8:50</label></div>
+        <div class="col-sm-2"><label><input asp-for="QuartaHorario1" /> 7h às 8:50</label></div>
+        <div class="col-sm-2"><label><input asp-for="QuintaHorario1" /> 7h às 8:50</label></div>
+        <div class="col-sm-2"><label><input asp-for="SextaHorario1" /> 7h às 8:50</label></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><label><input asp-for="SegundaHorario2" /> 9h às 10:50</label></div>
+        <div class="col-sm-2"><label><input asp-for="TercaHorario2" /> 9h às 10:50</label></div>
+        <div class="col-sm-2"><label><input asp-for="QuartaHorario2" /> 9h às 10:50</label></div>
+        <div class="col-sm-2"><label><input asp-for="QuintaHorario2" /> 9h às 10:50</label></div>
+        <div class="col-sm-2"><label><input asp-for="SextaHorario2" /> 9h às 10:50</label></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2"><label><input asp-for="SegundaHorario3" /> 11h às 12:50</label></div>
+        <div class="col-sm-2"><label><input asp-for="TercaHorario3" /> 11h às 12:50</label></div>
+        <div class="col-sm-2"><label><input asp-for="QuartaHorario3" /> 11h às 12:50</label></div>
+        <div class="col-sm-2"><label><input asp-for="QuintaHorario3" /> 11h às 12:50</label></div>
+        <div class="col-sm-2"><label><input asp-for="SextaHorario3" /> 11h às 12:50</label></div>
+    </div>
+    <div class="row">
+        <div class="form-group col-sm-2">
+            <input type="submit" value="Cadastrar" class="btn btn-primary" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+            <a asp-action="Index">Voltar à lista</a>
+        </div>
+    </div>
+</form>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

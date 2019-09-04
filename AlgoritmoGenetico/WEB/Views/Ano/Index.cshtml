@@ -46,9 +46,6 @@ else
                         @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                         @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                     </td>
-                    <td>
-                        <a asp-action="Index" asp-controller="AlgoritmoGenetico" asp-route-ano="@item.Periodo" class="btn btn-danger"> Selecionar para Algoritmo Genético</a>
-                    </td>
                 </tr>
             }
         </tbody>

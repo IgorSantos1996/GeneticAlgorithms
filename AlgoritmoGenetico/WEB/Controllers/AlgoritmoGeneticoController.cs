@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Models;
 using Persistencia;
 
@@ -12,30 +13,25 @@ namespace WEB.Controllers
     public class AlgoritmoGeneticoController : Controller
     {
         private readonly PersistenciaAlgoritmoGenetico persistenciaAlgoritmoGenetico;
+        private readonly PersistenciaAno persistenciaAno;
 
         public AlgoritmoGeneticoController(DbContextAG contexto)
         {
             persistenciaAlgoritmoGenetico = new PersistenciaAlgoritmoGenetico(contexto);
+            persistenciaAno = new PersistenciaAno(contexto);
         }
 
         // GET: AlgoritmoGenetico
-        public IActionResult Index(string ano, string acao = "", List<Individuo> individuos = null)
+        public IActionResult Index(string ano)
         {
-            List<Individuo> populacao = null;
-            if (individuos.Count != 0)
-            {
-                populacao = persistenciaAlgoritmoGenetico.FuncaoFitness(individuos, ano);
-            }
-            else
-            {
-                populacao = persistenciaAlgoritmoGenetico.AlgoritmoGenetico(ano);
-                if (acao.Equals("avaliarpopulacao"))
-                {
-                    populacao = persistenciaAlgoritmoGenetico.FuncaoFitness(populacao, ano);
-                }
-            }
-
+            var populacao = persistenciaAlgoritmoGenetico.AlgoritmoGenetico(ano);
             return View(populacao);
+        }
+
+        public IActionResult SelecionarAno()
+        {
+            ViewBag.AllAno = new SelectList(persistenciaAno.ObterTodos(), "Periodo", "Periodo");
+            return View();
         }
 
         // GET: AlgoritmoGenetico/Details/5
