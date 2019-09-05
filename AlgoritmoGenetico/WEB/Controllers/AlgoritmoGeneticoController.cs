@@ -24,8 +24,8 @@ namespace WEB.Controllers
         // GET: AlgoritmoGenetico
         public IActionResult Index(string ano)
         {
-            var populacao = persistenciaAlgoritmoGenetico.AlgoritmoGenetico(ano);
-            return View(populacao);
+            var geracoes = persistenciaAlgoritmoGenetico.AlgoritmoGenetico(ano);
+            return View(geracoes);
         }
 
         public IActionResult SelecionarAno()

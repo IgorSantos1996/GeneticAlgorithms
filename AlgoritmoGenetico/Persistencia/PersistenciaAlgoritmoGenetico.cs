@@ -10,6 +10,7 @@ namespace Persistencia
     {
         private Random random = new Random();
         private readonly int qtdIndividuos = 4;
+        private readonly int qtdGeracao = 4;
         private readonly DbContextAG _contexto;
         private Individuo individuo;
         public PersistenciaAlgoritmoGenetico(DbContextAG contexto)
@@ -17,18 +18,37 @@ namespace Persistencia
             _contexto = contexto;
         }
 
-        public List<Individuo> AlgoritmoGenetico(string ano)
+        public List<Geracao> AlgoritmoGenetico(string ano)
         {
-            var arrayIndividuo = InicializarPopulação(ano);
-            // array de individuos avaliados
-            arrayIndividuo = FuncaoFitness(arrayIndividuo, ano);
-            // escolher mais aptos para cross-over
+            List<Geracao> geracoes = new List<Geracao>();
 
-            // cross-over e/ou mutação
+            var populacaoInicial = InicializarPopulação(ano);
+            populacaoInicial = FuncaoFitness(populacaoInicial, ano);
 
-            // concepção da nova geração
+            Geracao geracao = new Geracao();
+            geracao.individuos = populacaoInicial;
 
-            return arrayIndividuo;
+            geracoes.Add(geracao);
+
+            var mediaAptidao = geracao.individuos.Sum(i => i.Aptidao);
+            mediaAptidao /= geracao.individuos.Count;
+
+            var contGeracao = 0;
+
+            while (/*mediaAptidao < 85 || */geracoes.Count < qtdGeracao)
+            {
+                geracao.individuos = GerarNovaPopulacao(geracoes[contGeracao].individuos);
+                geracao.individuos = FuncaoFitness(geracoes[contGeracao].individuos, ano);
+
+                /*mediaAptidao = geracao.individuos.Sum(i => i.Aptidao);
+                mediaAptidao /= geracao.individuos.Count;*/
+
+                geracoes.Add(geracao);
+
+                geracao = new Geracao();
+                contGeracao++;
+            }
+            return geracoes;
         }
 
         private List<Individuo> InicializarPopulação(string ano)
@@ -158,6 +178,25 @@ namespace Persistencia
             }
             return arrayIndividuos;
         }
+        private List<Individuo> GerarNovaPopulacao(List<Individuo> populacao)
+        {
+            // chamar o selecao para populacao
+            // excluir os individuos ja selecionados
+            // pegar os 2 individuos
+            // passar para o crossover
+            List<Individuo> novaGeracao = new List<Individuo>();
+            while (populacao.Count > 0)
+            {
+                (var individuoPai, var individuoMae) = Selecao(populacao);
+                populacao.Remove(individuoPai);
+                populacao.Remove(individuoMae);
+
+                (var filho1, var filho2) = CrossOver(individuoPai, individuoMae);
+                novaGeracao.Add(filho1);
+                novaGeracao.Add(filho2);
+            }
+            return novaGeracao;
+        }
         private (Individuo, Individuo) Selecao(List<Individuo> populacao)
         {
             var totalAptidaoPopulacao = populacao.Sum(p => p.Aptidao);
@@ -180,32 +219,75 @@ namespace Persistencia
                         if (cont == 1)
                         {
                             individuo1 = item;
-                            cont++;
+                            break;
                         }
-                        if(cont == 2)
+                        if (cont == 2)
                         {
                             individuo2 = item;
-                            cont++;
+                            break;
                         }
                     }
                 }
+                cont++;
             }
             return (individuo1, individuo2);
         }
-        private List<Individuo> GerarNovaPopulacao(List<Individuo> populacao)
+        private (Individuo, Individuo) CrossOver(Individuo individuoPai, Individuo individuoMae)
         {
-            // chamar o selecao para populacao
-            // excluir os individuos ja selecionados
-            // pegar os 2 individuos
-            // passar para o crossover
-            return null;
-        }
-        private (Individuo, Individuo) CrossOver(Individuo individuo1, Individuo individuo2)
-        {
-            // cruzamento segunda e terça
-            // cruzamento quarta, quinta e sexta de outro
-            // gerando assim dois individuos
-            return (null, null);
+            Individuo filho1 = new Individuo();
+            Individuo filho2 = new Individuo();
+
+            // Filho 1 
+            filho1.Periodo_1_2.Segunda = individuoPai.Periodo_1_2.Segunda;
+            filho1.Periodo_1_2.Terca = individuoPai.Periodo_1_2.Terca;
+            filho1.Periodo_1_2.Quarta = individuoMae.Periodo_1_2.Quarta;
+            filho1.Periodo_1_2.Quinta = individuoMae.Periodo_1_2.Quinta;
+            filho1.Periodo_1_2.Sexta = individuoMae.Periodo_1_2.Sexta;
+
+            filho1.Periodo_3_4.Segunda = individuoPai.Periodo_3_4.Segunda;
+            filho1.Periodo_3_4.Terca = individuoPai.Periodo_3_4.Terca;
+            filho1.Periodo_3_4.Quarta = individuoMae.Periodo_3_4.Quarta;
+            filho1.Periodo_3_4.Quinta = individuoMae.Periodo_3_4.Quinta;
+            filho1.Periodo_3_4.Sexta = individuoMae.Periodo_3_4.Sexta;
+
+            filho1.Periodo_5_6.Segunda = individuoPai.Periodo_5_6.Segunda;
+            filho1.Periodo_5_6.Terca = individuoPai.Periodo_5_6.Terca;
+            filho1.Periodo_5_6.Quarta = individuoMae.Periodo_5_6.Quarta;
+            filho1.Periodo_5_6.Quinta = individuoMae.Periodo_5_6.Quinta;
+            filho1.Periodo_5_6.Sexta = individuoMae.Periodo_5_6.Sexta;
+
+            filho1.Periodo_7_8.Segunda = individuoPai.Periodo_7_8.Segunda;
+            filho1.Periodo_7_8.Terca = individuoPai.Periodo_7_8.Terca;
+            filho1.Periodo_7_8.Quarta = individuoMae.Periodo_7_8.Quarta;
+            filho1.Periodo_7_8.Quinta = individuoMae.Periodo_7_8.Quinta;
+            filho1.Periodo_7_8.Sexta = individuoMae.Periodo_7_8.Sexta;
+
+            // Filho 2
+            filho2.Periodo_1_2.Segunda = individuoMae.Periodo_1_2.Segunda;
+            filho2.Periodo_1_2.Terca = individuoMae.Periodo_1_2.Terca;
+            filho2.Periodo_1_2.Quarta = individuoPai.Periodo_1_2.Quarta;
+            filho2.Periodo_1_2.Quinta = individuoPai.Periodo_1_2.Quinta;
+            filho2.Periodo_1_2.Sexta = individuoPai.Periodo_1_2.Sexta;
+
+            filho2.Periodo_3_4.Segunda = individuoMae.Periodo_3_4.Segunda;
+            filho2.Periodo_3_4.Terca = individuoMae.Periodo_3_4.Terca;
+            filho2.Periodo_3_4.Quarta = individuoPai.Periodo_3_4.Quarta;
+            filho2.Periodo_3_4.Quinta = individuoPai.Periodo_3_4.Quinta;
+            filho2.Periodo_3_4.Sexta = individuoPai.Periodo_3_4.Sexta;
+
+            filho2.Periodo_5_6.Segunda = individuoMae.Periodo_5_6.Segunda;
+            filho2.Periodo_5_6.Terca = individuoMae.Periodo_5_6.Terca;
+            filho2.Periodo_5_6.Quarta = individuoPai.Periodo_5_6.Quarta;
+            filho2.Periodo_5_6.Quinta = individuoPai.Periodo_5_6.Quinta;
+            filho2.Periodo_5_6.Sexta = individuoPai.Periodo_5_6.Sexta;
+
+            filho2.Periodo_7_8.Segunda = individuoMae.Periodo_7_8.Segunda;
+            filho2.Periodo_7_8.Terca = individuoMae.Periodo_7_8.Terca;
+            filho2.Periodo_7_8.Quarta = individuoPai.Periodo_7_8.Quarta;
+            filho2.Periodo_7_8.Quinta = individuoPai.Periodo_7_8.Quinta;
+            filho2.Periodo_7_8.Sexta = individuoPai.Periodo_7_8.Sexta;
+
+            return (filho1, filho2);
         }
 
         /* Restricao Disciplina de 6 créditos com todas as aulas no mesmo dia */
