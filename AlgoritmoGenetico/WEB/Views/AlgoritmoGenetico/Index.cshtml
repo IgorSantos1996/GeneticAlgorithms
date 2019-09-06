@@ -2,9 +2,9 @@
 
 @{
     ViewData["Title"] = "Index";
-    var contInd = 0;
     var corBotao = "";
     var contGeracao = 0;
+    var contInd = 1;
 }
 <div class="row">
     <div class="col-sm-3">
@@ -58,8 +58,7 @@
                             {
                                 corBotao = "btn btn-danger";
                             }
-                            contInd++;
-                            var individuo = "individuo" + contInd;
+                            var individuo = "individuo" + contInd++;
                             <div class="col-sm-3">
                                 <p>
                                     <a class="@corBotao col-sm-10" data-toggle="collapse" href="#@individuo" role="button" aria-expanded="false" aria-controls="collapseExample">
