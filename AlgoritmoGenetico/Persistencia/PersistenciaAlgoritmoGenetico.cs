@@ -9,8 +9,8 @@ namespace Persistencia
     public class PersistenciaAlgoritmoGenetico
     {
         private Random random = new Random();
-        private readonly int qtdIndividuos = 4;
-        private readonly int qtdGeracao = 4;
+        private readonly int qtdIndividuos = 30;
+        private readonly int qtdGeracao = 10;
         private readonly DbContextAG _contexto;
         private Individuo individuo;
         public PersistenciaAlgoritmoGenetico(DbContextAG contexto)
@@ -24,30 +24,38 @@ namespace Persistencia
 
             var populacaoInicial = InicializarPopulação(ano);
             populacaoInicial = FuncaoFitness(populacaoInicial, ano);
+            
+            bool jaAdicionei = false;
 
-            Geracao geracao = new Geracao();
-            geracao.individuos = populacaoInicial;
+            for (int i = 1; i < qtdGeracao; i++)
+            {
+                if (!jaAdicionei)
+                {
+                    geracoes.Add(new Geracao
+                    {
+                        individuos = populacaoInicial
+                    });
+                    jaAdicionei = true;
+                }
+                var geracao = geracoes[i - 1];
+                var novaPopulacao = GerarNovaPopulacao(geracao.individuos);
+                novaPopulacao = FuncaoFitness(novaPopulacao, ano);
 
-            geracoes.Add(geracao);
-
-            var mediaAptidao = geracao.individuos.Sum(i => i.Aptidao);
-            mediaAptidao /= geracao.individuos.Count;
-
-            var contGeracao = 0;
-
-            while (/*mediaAptidao < 85 || */geracoes.Count < qtdGeracao)
+                geracoes.Add(new Geracao
+                {
+                    individuos = novaPopulacao
+                });
+            }
+            /*while (mediaAptidao < 85 || geracoes.Count < qtdGeracao)
             {
                 geracao.individuos = GerarNovaPopulacao(geracoes[contGeracao].individuos);
-                geracao.individuos = FuncaoFitness(geracoes[contGeracao].individuos, ano);
-
-                /*mediaAptidao = geracao.individuos.Sum(i => i.Aptidao);
-                mediaAptidao /= geracao.individuos.Count;*/
+                geracao.individuos = FuncaoFitness(geracao.individuos, ano);
 
                 geracoes.Add(geracao);
 
                 geracao = new Geracao();
                 contGeracao++;
-            }
+            }*/
             return geracoes;
         }
 
@@ -184,12 +192,15 @@ namespace Persistencia
             // excluir os individuos ja selecionados
             // pegar os 2 individuos
             // passar para o crossover
+
             List<Individuo> novaGeracao = new List<Individuo>();
+            //var populacao = populacaoParametro;
             while (populacao.Count > 0)
             {
                 (var individuoPai, var individuoMae) = Selecao(populacao);
-                populacao.Remove(individuoPai);
-                populacao.Remove(individuoMae);
+                populacao = populacao
+                    .Where(p =>!p.Equals(individuoPai) && !p.Equals(individuoMae))
+                    .ToList();
 
                 (var filho1, var filho2) = CrossOver(individuoPai, individuoMae);
                 novaGeracao.Add(filho1);
@@ -199,7 +210,6 @@ namespace Persistencia
         }
         private (Individuo, Individuo) Selecao(List<Individuo> populacao)
         {
-            var totalAptidaoPopulacao = populacao.Sum(p => p.Aptidao);
             Random random = new Random();
 
             Individuo individuo1 = null;
@@ -209,6 +219,7 @@ namespace Persistencia
 
             while (cont <= 2)
             {
+                var totalAptidaoPopulacao = populacao.Sum(p => p.Aptidao);
                 var numeroAleatorio = random.Next(0, totalAptidaoPopulacao);
                 var somaAptidoes = 0;
                 foreach (var item in populacao)
@@ -219,11 +230,19 @@ namespace Persistencia
                         if (cont == 1)
                         {
                             individuo1 = item;
+                            populacao = populacao
+                                .Where(p => ! p.Equals(item))
+                                .ToList();
+                            //populacao.Remove(item);
                             break;
                         }
                         if (cont == 2)
                         {
                             individuo2 = item;
+                            populacao = populacao
+                                .Where(p => !p.Equals(item))
+                                .ToList();
+                            //populacao.Remove(item);
                             break;
                         }
                     }
@@ -238,54 +257,94 @@ namespace Persistencia
             Individuo filho2 = new Individuo();
 
             // Filho 1 
-            filho1.Periodo_1_2.Segunda = individuoPai.Periodo_1_2.Segunda;
-            filho1.Periodo_1_2.Terca = individuoPai.Periodo_1_2.Terca;
-            filho1.Periodo_1_2.Quarta = individuoMae.Periodo_1_2.Quarta;
-            filho1.Periodo_1_2.Quinta = individuoMae.Periodo_1_2.Quinta;
-            filho1.Periodo_1_2.Sexta = individuoMae.Periodo_1_2.Sexta;
+            if (individuoPai.Periodo_1_2.Segunda != null)
+                filho1.Periodo_1_2.Segunda = individuoPai.Periodo_1_2.Segunda;
+            if (individuoPai.Periodo_1_2.Terca != null)
+                filho1.Periodo_1_2.Terca = individuoPai.Periodo_1_2.Terca;
+            if (individuoMae.Periodo_1_2.Quarta != null)
+                filho1.Periodo_1_2.Quarta = individuoMae.Periodo_1_2.Quarta;
+            if (individuoMae.Periodo_1_2.Quinta != null)
+                filho1.Periodo_1_2.Quinta = individuoMae.Periodo_1_2.Quinta;
+            if (individuoMae.Periodo_1_2.Sexta != null)
+                filho1.Periodo_1_2.Sexta = individuoMae.Periodo_1_2.Sexta;
 
-            filho1.Periodo_3_4.Segunda = individuoPai.Periodo_3_4.Segunda;
-            filho1.Periodo_3_4.Terca = individuoPai.Periodo_3_4.Terca;
-            filho1.Periodo_3_4.Quarta = individuoMae.Periodo_3_4.Quarta;
-            filho1.Periodo_3_4.Quinta = individuoMae.Periodo_3_4.Quinta;
-            filho1.Periodo_3_4.Sexta = individuoMae.Periodo_3_4.Sexta;
+            if (individuoPai.Periodo_3_4.Segunda != null)
+                filho1.Periodo_3_4.Segunda = individuoPai.Periodo_3_4.Segunda;
+            if (individuoPai.Periodo_3_4.Terca != null)
+                filho1.Periodo_3_4.Terca = individuoPai.Periodo_3_4.Terca;
+            if (individuoMae.Periodo_3_4.Quarta != null)
+                filho1.Periodo_3_4.Quarta = individuoMae.Periodo_3_4.Quarta;
+            if (individuoMae.Periodo_3_4.Quinta != null)
+                filho1.Periodo_3_4.Quinta = individuoMae.Periodo_3_4.Quinta;
+            if (individuoMae.Periodo_3_4.Sexta != null)
+                filho1.Periodo_3_4.Sexta = individuoMae.Periodo_3_4.Sexta;
 
-            filho1.Periodo_5_6.Segunda = individuoPai.Periodo_5_6.Segunda;
-            filho1.Periodo_5_6.Terca = individuoPai.Periodo_5_6.Terca;
-            filho1.Periodo_5_6.Quarta = individuoMae.Periodo_5_6.Quarta;
-            filho1.Periodo_5_6.Quinta = individuoMae.Periodo_5_6.Quinta;
-            filho1.Periodo_5_6.Sexta = individuoMae.Periodo_5_6.Sexta;
+            if (individuoPai.Periodo_5_6.Segunda != null)
+                filho1.Periodo_5_6.Segunda = individuoPai.Periodo_5_6.Segunda;
+            if (individuoPai.Periodo_5_6.Terca != null)
+                filho1.Periodo_5_6.Terca = individuoPai.Periodo_5_6.Terca;
+            if (individuoMae.Periodo_5_6.Quarta != null)
+                filho1.Periodo_5_6.Quarta = individuoMae.Periodo_5_6.Quarta;
+            if (individuoMae.Periodo_5_6.Quinta != null)
+                filho1.Periodo_5_6.Quinta = individuoMae.Periodo_5_6.Quinta;
+            if (individuoMae.Periodo_5_6.Sexta != null)
+                filho1.Periodo_5_6.Sexta = individuoMae.Periodo_5_6.Sexta;
 
-            filho1.Periodo_7_8.Segunda = individuoPai.Periodo_7_8.Segunda;
-            filho1.Periodo_7_8.Terca = individuoPai.Periodo_7_8.Terca;
-            filho1.Periodo_7_8.Quarta = individuoMae.Periodo_7_8.Quarta;
-            filho1.Periodo_7_8.Quinta = individuoMae.Periodo_7_8.Quinta;
-            filho1.Periodo_7_8.Sexta = individuoMae.Periodo_7_8.Sexta;
+            if (individuoPai.Periodo_7_8.Segunda != null)
+                filho1.Periodo_7_8.Segunda = individuoPai.Periodo_7_8.Segunda;
+            if (individuoPai.Periodo_7_8.Terca != null)
+                filho1.Periodo_7_8.Terca = individuoPai.Periodo_7_8.Terca;
+            if (individuoMae.Periodo_7_8.Quarta != null)
+                filho1.Periodo_7_8.Quarta = individuoMae.Periodo_7_8.Quarta;
+            if (individuoMae.Periodo_7_8.Quinta != null)
+                filho1.Periodo_7_8.Quinta = individuoMae.Periodo_7_8.Quinta;
+            if (individuoMae.Periodo_7_8.Sexta != null)
+                filho1.Periodo_7_8.Sexta = individuoMae.Periodo_7_8.Sexta;
 
             // Filho 2
-            filho2.Periodo_1_2.Segunda = individuoMae.Periodo_1_2.Segunda;
-            filho2.Periodo_1_2.Terca = individuoMae.Periodo_1_2.Terca;
-            filho2.Periodo_1_2.Quarta = individuoPai.Periodo_1_2.Quarta;
-            filho2.Periodo_1_2.Quinta = individuoPai.Periodo_1_2.Quinta;
-            filho2.Periodo_1_2.Sexta = individuoPai.Periodo_1_2.Sexta;
+            if (individuoMae.Periodo_1_2.Segunda != null)
+                filho2.Periodo_1_2.Segunda = individuoMae.Periodo_1_2.Segunda;
+            if (individuoMae.Periodo_1_2.Terca != null)
+                filho2.Periodo_1_2.Terca = individuoMae.Periodo_1_2.Terca;
+            if (individuoPai.Periodo_1_2.Quarta != null)
+                filho2.Periodo_1_2.Quarta = individuoPai.Periodo_1_2.Quarta;
+            if (individuoPai.Periodo_1_2.Quinta != null)
+                filho2.Periodo_1_2.Quinta = individuoPai.Periodo_1_2.Quinta;
+            if (individuoPai.Periodo_1_2.Sexta != null)
+                filho2.Periodo_1_2.Sexta = individuoPai.Periodo_1_2.Sexta;
 
-            filho2.Periodo_3_4.Segunda = individuoMae.Periodo_3_4.Segunda;
-            filho2.Periodo_3_4.Terca = individuoMae.Periodo_3_4.Terca;
-            filho2.Periodo_3_4.Quarta = individuoPai.Periodo_3_4.Quarta;
-            filho2.Periodo_3_4.Quinta = individuoPai.Periodo_3_4.Quinta;
-            filho2.Periodo_3_4.Sexta = individuoPai.Periodo_3_4.Sexta;
+            if (individuoMae.Periodo_3_4.Segunda != null)
+                filho2.Periodo_3_4.Segunda = individuoMae.Periodo_3_4.Segunda;
+            if (individuoMae.Periodo_3_4.Terca != null)
+                filho2.Periodo_3_4.Terca = individuoMae.Periodo_3_4.Terca;
+            if (individuoPai.Periodo_3_4.Quarta != null)
+                filho2.Periodo_3_4.Quarta = individuoPai.Periodo_3_4.Quarta;
+            if (individuoPai.Periodo_3_4.Quinta != null)
+                filho2.Periodo_3_4.Quinta = individuoPai.Periodo_3_4.Quinta;
+            if (individuoPai.Periodo_3_4.Sexta != null)
+                filho2.Periodo_3_4.Sexta = individuoPai.Periodo_3_4.Sexta;
 
-            filho2.Periodo_5_6.Segunda = individuoMae.Periodo_5_6.Segunda;
-            filho2.Periodo_5_6.Terca = individuoMae.Periodo_5_6.Terca;
-            filho2.Periodo_5_6.Quarta = individuoPai.Periodo_5_6.Quarta;
-            filho2.Periodo_5_6.Quinta = individuoPai.Periodo_5_6.Quinta;
-            filho2.Periodo_5_6.Sexta = individuoPai.Periodo_5_6.Sexta;
+            if (individuoMae.Periodo_5_6.Segunda != null)
+                filho2.Periodo_5_6.Segunda = individuoMae.Periodo_5_6.Segunda;
+            if (individuoMae.Periodo_5_6.Terca != null)
+                filho2.Periodo_5_6.Terca = individuoMae.Periodo_5_6.Terca;
+            if (individuoPai.Periodo_5_6.Quarta != null)
+                filho2.Periodo_5_6.Quarta = individuoPai.Periodo_5_6.Quarta;
+            if (individuoPai.Periodo_5_6.Quinta != null)
+                filho2.Periodo_5_6.Quinta = individuoPai.Periodo_5_6.Quinta;
+            if (individuoPai.Periodo_5_6.Sexta != null)
+                filho2.Periodo_5_6.Sexta = individuoPai.Periodo_5_6.Sexta;
 
-            filho2.Periodo_7_8.Segunda = individuoMae.Periodo_7_8.Segunda;
-            filho2.Periodo_7_8.Terca = individuoMae.Periodo_7_8.Terca;
-            filho2.Periodo_7_8.Quarta = individuoPai.Periodo_7_8.Quarta;
-            filho2.Periodo_7_8.Quinta = individuoPai.Periodo_7_8.Quinta;
-            filho2.Periodo_7_8.Sexta = individuoPai.Periodo_7_8.Sexta;
+            if (individuoMae.Periodo_7_8.Segunda != null)
+                filho2.Periodo_7_8.Segunda = individuoMae.Periodo_7_8.Segunda;
+            if (individuoMae.Periodo_7_8.Terca != null)
+                filho2.Periodo_7_8.Terca = individuoMae.Periodo_7_8.Terca;
+            if (individuoPai.Periodo_7_8.Quarta != null)
+                filho2.Periodo_7_8.Quarta = individuoPai.Periodo_7_8.Quarta;
+            if (individuoPai.Periodo_7_8.Quinta != null)
+                filho2.Periodo_7_8.Quinta = individuoPai.Periodo_7_8.Quinta;
+            if (individuoPai.Periodo_7_8.Sexta != null)
+                filho2.Periodo_7_8.Sexta = individuoPai.Periodo_7_8.Sexta;
 
             return (filho1, filho2);
         }
