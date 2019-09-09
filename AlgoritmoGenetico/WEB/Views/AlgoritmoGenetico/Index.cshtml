@@ -5,6 +5,7 @@
     var corBotao = "";
     var contGeracao = 0;
     var contInd = 1;
+    var contNomeInd = 1;
 }
 <div class="row">
     <div class="col-sm-3">
@@ -20,6 +21,11 @@
         <a class="btn btn-danger col-sm-10"><label>Piores Individuos <br /> (Aptidao < 70)</label></a>
     </div>
 </div>
+<div class="row">
+    <div class="col-sm-5">
+        Tempo de Processamento: @ViewBag.TempoProcessamento
+    </div>
+</div>
 <br />
 <hr />
 
@@ -27,14 +33,21 @@
 {
     contGeracao++;
     var strinGeracao = "geracao" + contGeracao;
+    var mediaGeracao = geracao.individuos.Sum(p => p.Aptidao);
+    mediaGeracao /= geracao.individuos.Count;
+    var nomeGeracao = "Geração " + contGeracao;
+    contNomeInd = 1;
 
     <div class="accordion" id="accordionExample">
         <div class="card">
             <div class="card-header" id="headingTwo">
                 <h5 class="mb-0">
                     <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#@strinGeracao" aria-expanded="false" aria-controls="collapseTwo">
-                        @strinGeracao
+                        @nomeGeracao
                     </button>
+                    <font size="2" style="float: right">
+                        Média Aptidão: @mediaGeracao
+                    </font>
                 </h5>
             </div>
             <div id="@strinGeracao" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
@@ -59,10 +72,11 @@
                                 corBotao = "btn btn-danger";
                             }
                             var individuo = "individuo" + contInd++;
+                            var nomeIndividuo = "Indivíduo " + contNomeInd ++;
                             <div class="col-sm-3">
                                 <p>
                                     <a class="@corBotao col-sm-10" data-toggle="collapse" href="#@individuo" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                        @individuo.ToUpper()
+                                        @nomeIndividuo.ToUpper()
                                         <br /><label> Aptidão: @item.Aptidao </label>
                                     </a>
                                 </p>

@@ -32,22 +32,77 @@ else
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Id)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Ano.Periodo)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Periodo)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
+                var stringModal = "modal" + item.Id;
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Ano.Periodo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Periodo)
+                    </td>
+                    <td>
+                        <a data-toggle="modal" data-target="#@stringModal" class="btn btn-secondary"><font color="white">Detalhes</font></a>
+                    </td>
+                </tr>
+                <!-- Modal -->
+                <div class="modal fade" id="@stringModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Restrição Horário</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label"> <b>Período</b> </label> <br />
+                                        <label class="control-label"> @item.Periodo</label>
+                                    </div>
+                                    <div class="form-group col-sm-4">
+                                        <label class="control-label"> <b> Ano</b> </label> <br />
+                                        <label class="control-label"> @item.Ano.Periodo</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2"> <b>Segunda</b> </div>
+                                    <div class="col-sm-2"> <b>Terça</b> </div>
+                                    <div class="col-sm-2"> <b>Quarta</b> </div>
+                                    <div class="col-sm-2"> <b>Quinta</b> </div>
+                                    <div class="col-sm-2"> <b>Sexta</b> </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.SegundaHorario1 ? "checked='checked'" : "") /> 7h às 8:50</label></div>
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.TercaHorario1 ? "checked='checked'" : "") /> 7h às 8:50</label></div>
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.QuartaHorario1 ? "checked='checked'" : "") /> 7h às 8:50</label></div>
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.QuintaHorario1 ? "checked='checked'" : "") /> 7h às 8:50</label></div>
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.SextaHorario1 ? "checked='checked'" : "") /> 7h às 8:50</label></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.SegundaHorario2 ? "checked='checked'" : "") /> 9h às 10:50</label></div>
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.TercaHorario2 ? "checked='checked'" : "") /> 9h às 10:50</label></div>
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.QuartaHorario2 ? "checked='checked'" : "") /> 9h às 10:50</label></div>
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.QuintaHorario2 ? "checked='checked'" : "") /> 9h às 10:50</label></div>
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.SextaHorario2 ? "checked='checked'" : "") /> 9h às 10:50</label></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.SegundaHorario3 ? "checked='checked'" : "") /> 11h às 12:50</label></div>
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.TercaHorario3 ? "checked='checked'" : "") /> 11h às 12:50</label></div>
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.QuartaHorario3 ? "checked='checked'" : "") /> 11h às 12:50</label></div>
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.QuintaHorario3 ? "checked='checked'" : "") /> 11h às 12:50</label></div>
+                                    <div class="col-sm-2"><label><input type="checkbox" @(item.SextaHorario3 ? "checked='checked'" : "") /> 11h às 12:50</label></div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             }
         </tbody>
     </table>

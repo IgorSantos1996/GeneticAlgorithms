@@ -24,8 +24,18 @@ namespace WEB.Controllers
         // GET: AlgoritmoGenetico
         public IActionResult Index(string ano)
         {
+            var dataInicio = DateTime.Now;
             var geracoes = persistenciaAlgoritmoGenetico.AlgoritmoGenetico(ano);
-            return View(geracoes);
+            List<Geracao> geracaoOrdenada = new List<Geracao>();
+            foreach (var item in geracoes)
+            {
+                var individuosOrdenados = item.individuos.OrderByDescending(i => i.Aptidao).ToList();
+                item.individuos = individuosOrdenados;
+                geracaoOrdenada.Add(item);
+            }
+            var tempoProcessamento = (DateTime.Now - dataInicio);
+            ViewBag.TempoProcessamento = tempoProcessamento;
+            return View(geracaoOrdenada);
         }
 
         public IActionResult SelecionarAno()
