@@ -1,121 +1,186 @@
 ﻿@{
     ViewData["Title"] = "Algoritmo Genético";
 }
-<ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" id="ag-tab" data-toggle="tab" href="#ag" role="tab" aria-controls="ag" aria-selected="true">
-            O que é AG ?
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="passos-tab" data-toggle="tab" href="#passos" role="tab" aria-controls="passos" aria-selected="false">
-            Passos a Seguir
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="devs-tab" data-toggle="tab" href="#devs" role="tab" aria-controls="devs" aria-selected="false">
-            Contribuidores
-        </a>
-    </li>
-</ul>
-<div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="ag" role="tabpanel" aria-labelledby="ag-tab">
-        <br />
-        <p>
-            Conceito de Algoritmo Genético
-        </p>
-    </div>
-    <div class="tab-pane fade" id="passos" role="tabpanel" aria-labelledby="passos-tab">
-        <br />
-        <p>
-            1º
-        </p>
-        <p>
-            2º
-        </p>
-    </div>
-    <div class="tab-pane fade" id="devs" role="tabpanel" aria-labelledby="devs-tab">
-        <br />
-        <div class="row">
-            <div class="accordion" id="accordionExample">
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#alunos" aria-expanded="false" aria-controls="collapseOne">
-                                Alunos
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="alunos" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="card mb-3">
-                                        <img class="card-img-top" src="~/imagens/clovijan.jpeg" alt="Imagem de capa do card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">CLOVIJAN BISPO ROCHA</h5>
-                                            <p class="card-text">
-                                                <b>Email</b><br /> jantheboy@hotmail.com
-                                            </p>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="ag-tab" data-toggle="tab" href="#ag" role="tab" aria-controls="ag" aria-selected="true">
+                O que é AG ?
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="passos-tab" data-toggle="tab" href="#passos" role="tab" aria-controls="passos" aria-selected="false">
+                Passos a Seguir
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="devs-tab" data-toggle="tab" href="#devs" role="tab" aria-controls="devs" aria-selected="false">
+                Contribuidores
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="inforesults-tab" data-toggle="tab" href="#inforesults" role="tab" aria-controls="inforesults" aria-selected="false">
+                Informações e Resultados
+            </a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="ag" role="tabpanel" aria-labelledby="ag-tab">
+            <br />
+            <p>
+                Conceito de Algoritmo Genético
+            </p>
+            <p>
+                Um algoritmo genético (AG) é uma técnica de busca utilizada na ciência da computação para achar soluções aproximadas em problemas de otimização e busca,
+                fundamentado principalmente pelo americano John Henry Holland.
+                Algoritmos genéticos são uma classe particular de algoritmos evolutivos que usam técnicas inspiradas pela biologia evolutiva como hereditariedade, mutação, seleção natural e recombinação (ou crossing over).
+            </p>
+        </div>
+        <div class="tab-pane fade" id="passos" role="tabpanel" aria-labelledby="passos-tab">
+            <br />
+            <ul>
+                <bold>1º</bold>
+                <li>Acesse a opção Professor no menu</li>
+                <li>Clique em novo professor</li>
+                <li>Dê um nome ao professor e em Clique em Cadastrar.</li>
+            </ul>
+            <ul>
+                <bold>2º</bold>
+                <li>Acesse a opção disciplina no menu</li>
+                <li>Nova Disciplina</li>
+                <li>Dê um nome ao professor</li>
+                <li>Selecione o período que ela sera ofertada</li>
+                <li>Insira o número de créditos da disciplina, Ex: 6</li>
+                <li>Selecione o professor que irá ministrar, previamente cadastrado</li>
+                <li>Clique em cadastrar.</li>
+            </ul>
+            <ul>
+                <bold>3º</bold>
+                <li>Acesse Período/Ano no menu</li>
+                <li>Clique em Novo Ano/Periodo</li>
+                <li>Insira o periodo, Ex: 20202</li>
+                <li>Selecione se o periodo é impar ou par</li>
+                <li>Por fim, clique em cadastrar.</li>
+            </ul>
+            <ul>
+                <bold>4º</bold>
+                <li>Acesse Horário no menu</li>
+                <li>Clique em Novo Horário</li>
+                <li>Selecione a Disciplina (Note que ela já esta relacionada com o professor)</li>
+                <li>Selecione o periodo que ela sera ofertada</li>
+                <li>Clique em Cadastrar.</li>
+            </ul>
+            <ul>
+                <b>5º</b>
+                <li>
+                    Na opção restrições, é possível estar inserindo tanto a disponibilidade dos professores (os dias) para dar aula,
+                    tanto como as disciplinas com horários fixos de outros departamentos
+                </li>
+                <li>Acesse no menu a opção Restrições e em seguida, clique em Disponibilidade dos professores/dias</li>
+                <li>Clique em Nova Restricao de profesosr</li>
+                <li>Selecione o Ano/Periodo</li>
+                <li>Selecione o Professor</li>
+                <li>Marque os dias que o professor está disponível para ministrar suas aulas</li>
+                <li>Por fim, Clique em Cadastrar.</li>
+            </ul>
+            <ul>
+                <b>6º</b>
+                <li>Seguindo o tópico anterior, é possível também inserir outra restrição de horário para disciplinas fixas de outros departamentos</li>
+                <li>Clique na opção Restrições e selecione a opção Disciplinas com horário Fixo</li>
+                <li>Clique em Nova Restrição de Horário</li>
+                <li>Selecione o período</li>
+                <li>Selecione o ano</li>
+                <li>Ao longo dos dias, marque somente os horários que as disciplinas fixas irão ocupar.</li>
+            </ul>
+            <ul>
+                <b>7º</b>
+                <li>Para então simular o algoritmo genético, é necessário Acessar o opção Simular Algoritmo genético no menu </li>
+                <li>Selecione o Ano/Periodo e clique em Simular</li>
+            </ul>
+
+        </div>
+        <div class="tab-pane fade" id="devs" role="tabpanel" aria-labelledby="devs-tab">
+            <br />
+            <div class="row">
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#alunos" aria-expanded="false" aria-controls="collapseOne">
+                                    Alunos
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="alunos" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="card mb-3">
+                                            <img class="card-img-top" src="~/imagens/clovijan.jpeg" alt="Imagem de capa do card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">CLOVIJAN BISPO ROCHA</h5>
+                                                <p class="card-text">
+                                                    <b>Email</b><br /> jantheboy@hotmail.com
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="card mb-3">
-                                        <img class="card-img-top" src="~/imagens/igor.jpg" alt="Imagem de capa do card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">IGOR TERRIAGA SANTOS</h5>
-                                            <p class="card-text">
-                                                <b>Email</b><br /> igsantos1996@gmail.com
-                                            </p>
+                                    <div class="col-sm-4">
+                                        <div class="card mb-3">
+                                            <img class="card-img-top" src="~/imagens/igor.jpg" alt="Imagem de capa do card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">IGOR TERRIAGA SANTOS</h5>
+                                                <p class="card-text">
+                                                    <b>Email</b><br /> igsantos1996@gmail.com
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="card mb-3">
-                                        <img class="card-img-top" src="~/imagens/joan.jpg" alt="Imagem de capa do card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">JOAN VITOR MENDONÇA DE JESUS</h5>
-                                            <p class="card-text">
-                                                <b>Email</b><br /> joanvitor97@yahoo.com <br /> j.v.m.j.97@gmail.com
-                                            </p>
+                                    <div class="col-sm-4">
+                                        <div class="card mb-3">
+                                            <img class="card-img-top" src="~/imagens/joan.jpg" alt="Imagem de capa do card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">JOAN VITOR MENDONÇA DE JESUS</h5>
+                                                <p class="card-text">
+                                                    <b>Email</b><br /> joanvitor97@yahoo.com <br /> j.v.m.j.97@gmail.com
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#professores" aria-expanded="false" aria-controls="collapseOne">
-                                Professores
-                            </button>
-                        </h5>
-                    </div>
-                    <div id="professores" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <div class="card mb-3">
-                                        <img class="card-img-top" src="~/imagens/alcides.jpg" alt="Imagem de capa do card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">ALCIDES XAVIER BENICASA </h5>
-                                            <p class="card-text">
-                                                <b>Email</b><br /> alcidesbenicasa@gmail.com
-                                            </p>
+                    <div class="card">
+                        <div class="card-header" id="headingOne">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#professores" aria-expanded="false" aria-controls="collapseOne">
+                                    Professores
+                                </button>
+                            </h5>
+                        </div>
+                        <div id="professores" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="card mb-3">
+                                            <img class="card-img-top" src="~/imagens/alcides.jpg" alt="Imagem de capa do card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">ALCIDES XAVIER BENICASA </h5>
+                                                <p class="card-text">
+                                                    <b>Email</b><br /> alcidesbenicasa@gmail.com
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="card mb-3">
-                                        <img class="card-img-top" src="~/imagens/cabojinha.jpg" alt="Imagem de capa do card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">ANDRE LUIS MENESES SILVA </h5>
-                                            <p class="card-text">
-                                                <b>Email</b><br /> andreluisms@gmail.com
-                                            </p>
+                                    <div class="col-sm-4">
+                                        <div class="card mb-3">
+                                            <img class="card-img-top" src="~/imagens/cabojinha.jpg" alt="Imagem de capa do card">
+                                            <div class="card-body">
+                                                <h5 class="card-title">ANDRE LUIS MENESES SILVA </h5>
+                                                <p class="card-text">
+                                                    <b>Email</b><br /> andreluisms@gmail.com
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -125,5 +190,11 @@
                 </div>
             </div>
         </div>
+        <div class="tab-pane fade" id="inforesults" role="tabpanel" aria-labelledby="inforesults-tab">
+            <br />
+            <p>
+                A população usada é de 500 indíviduos. <br />
+                O ponto de parada é quando um surgir um indíviduo com a aptdião de 90 ou mais, considerada por nós, como "Melhor" da geração.
+            </p>
+        </div>
     </div>
-</div>

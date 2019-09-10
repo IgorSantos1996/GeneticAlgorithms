@@ -28,7 +28,7 @@ namespace Persistencia
             .Select(p => new Disciplina
             {
                 Id = p.Id,
-                Nome = p.Nome + " -> " + p.Professor.Nome
+                Nome = p.Nome + "/ Periodo: " + p.Periodo + " -> " + p.Professor.Nome
             })
             .ToList();
 

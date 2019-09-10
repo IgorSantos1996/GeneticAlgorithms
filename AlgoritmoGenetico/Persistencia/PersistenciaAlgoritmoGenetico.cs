@@ -49,26 +49,16 @@ namespace Persistencia
                 });
                 testePopulacao = novaPopulacao;
             }
-            /*
-            for (int i = 1; i < qtdGeracao; i++)
+            // para os casos que não entrar no while, por exemplo a 1 geração já vir boa
+            if (!jaAdicionei)
             {
-                if (!jaAdicionei)
-                {
-                    geracoes.Add(new Geracao
-                    {
-                        individuos = populacaoInicial
-                    });
-                    jaAdicionei = true;
-                }
-                var geracao = geracoes[i - 1];
-                var novaPopulacao = GerarNovaPopulacao(geracao.individuos);
-                novaPopulacao = FuncaoFitness(novaPopulacao, ano);
-
                 geracoes.Add(new Geracao
                 {
-                    individuos = novaPopulacao
+                    individuos = populacaoInicial
                 });
-            }*/
+                jaAdicionei = true;
+            }
+
             return geracoes;
         }
 
