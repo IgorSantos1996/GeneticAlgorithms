@@ -13,15 +13,17 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE="/>
+              integrity="sha256-eSi1q2PG6J7g7ib17yAaWMcrr5GrtohYChqibrV7PBE=" />
     </environment>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
+          integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-primary border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Algoritmo Genético</a>
+                <a class="navbar-brand text-light h1 mb-0"  asp-controller="Home" asp-action="Index"><i class="fas fa-dna"></i> Algoritmo Genético</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -29,23 +31,23 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-light" asp-controller="Professor" asp-action="Index">Professor</a>
+                            <a class="nav-link text-light btn btn-primary" asp-controller="Professor" asp-action="Index">Professor</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-light" asp-controller="Disciplina" asp-action="Index">Disciplina</a>
+                            <a class="nav-link text-light btn btn-primary" asp-controller="Disciplina" asp-action="Index">Disciplina</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-light" asp-controller="Ano" asp-action="Index">Período / Ano</a>
+                            <a class="nav-link text-light btn btn-primary" asp-controller="Ano" asp-action="Index">Período / Ano</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-light" asp-controller="Horario" asp-action="Index">Horário</a>
+                            <a class="nav-link text-light btn btn-primary" asp-controller="Horario" asp-action="Index">Horário</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark btn btn-light" asp-controller="AlgoritmoGenetico" asp-action="SelecionarAno">Simular o Algoritmo Genético</a>
+                            <a class="nav-link text-light btn btn-primary" asp-controller="AlgoritmoGenetico" asp-action="SelecionarAno">Simular o Algoritmo Genético</a>
                         </li>
                         <!-- Exemplo de único botão danger -->
                         <div class="btn-group">
-                            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Restrições
                             </button>
                             <div class="dropdown-menu">
