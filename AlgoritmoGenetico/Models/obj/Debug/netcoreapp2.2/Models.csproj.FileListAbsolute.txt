@@ -1,9 +1,0 @@
-D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Models\bin\Debug\netcoreapp2.2\Models.deps.json
-D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Models\bin\Debug\netcoreapp2.2\Models.dll
-D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Models\bin\Debug\netcoreapp2.2\Models.pdb
-D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Models\obj\Debug\netcoreapp2.2\Models.csproj.CoreCompileInputs.cache
-D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Models\obj\Debug\netcoreapp2.2\Models.AssemblyInfoInputs.cache
-D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Models\obj\Debug\netcoreapp2.2\Models.AssemblyInfo.cs
-D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Models\obj\Debug\netcoreapp2.2\Models.dll
-D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Models\obj\Debug\netcoreapp2.2\Models.pdb
-D:\JOAN VITOR\UFS\8º PERIODO\INTELIGENCIA ARTIFICIAL\2º UNIDADE\PROJETO\GeneticAlgorithms\AlgoritmoGenetico\Models\obj\Debug\netcoreapp2.2\Models.csprojAssemblyReference.cache
